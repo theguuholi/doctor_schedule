@@ -1,3 +1,7 @@
+[![codecov](https://codecov.io/gh/theguuholi/doctor_schedule/branch/main/graph/badge.svg?token=SL9ADOVJ32)](undefined)
+
+[![Build Status](https://travis-ci.com/theguuholi/doctor_schedule.svg?branch=master)](https://travis-ci.com/theguuholi/doctor_schedule)
+
 # DoctorSchedule
 
 To start your Phoenix server:
