@@ -1,13 +1,12 @@
-defmodule DoctorScheduleWeb.UserView do
+defmodule DoctorScheduleWeb.Api.UserView do
   use DoctorScheduleWeb, :view
-  alias DoctorScheduleWeb.UserView
 
   def render("index.json", %{users: users}) do
-    render_many(users, UserView, "user.json")
+    render_many(users, __MODULE__, "user.json")
   end
 
   def render("show.json", %{user: user}) do
-    render_one(user, UserView, "user.json")
+    render_one(user, __MODULE__, "user.json")
   end
 
   def render("user.json", %{user: user}) do
