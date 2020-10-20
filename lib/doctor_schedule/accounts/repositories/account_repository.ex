@@ -1,4 +1,4 @@
-defmodule DoctorSchedule.Accounts do
+defmodule DoctorSchedule.Accounts.Repositories.AccountRepository do
   @moduledoc """
   The Accounts context.
   """
@@ -6,7 +6,7 @@ defmodule DoctorSchedule.Accounts do
   import Ecto.Query, warn: false
   alias DoctorSchedule.Repo
 
-  alias DoctorSchedule.Accounts.User
+  alias DoctorSchedule.Accounts.Entities.User
 
   @doc """
   Returns the list of users.
