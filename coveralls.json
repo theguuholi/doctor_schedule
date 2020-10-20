@@ -1,0 +1,14 @@
+{
+  "skip_files": [
+    "lib/doctor_schedule/application.ex",
+    "lib/doctor_schedule/release.ex",
+    "lib/doctor_schedule_web.ex",
+    "lib/doctor_schedule_web/views/error_helpers.ex",
+    "test/support/channel_case.ex"
+  ],
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "output_dir": "cover/",
+    "minimum_coverage": 75
+  }
+}

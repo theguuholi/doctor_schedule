@@ -1,0 +1,23 @@
+sudo: required
+language: elixir
+elixir:
+  - 1.10
+opt_release:
+  - 22.2.6
+addons:
+  postgres: "9.4"
+services:
+  - postgresql
+  - docker
+
+cache:
+  directories:
+    - _build
+    - deps
+script:
+  - mix format --check-formatted --dry-run
+  - mix credo --strict
+  - mix sobelow --config
+  - mix coveralls.json
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
