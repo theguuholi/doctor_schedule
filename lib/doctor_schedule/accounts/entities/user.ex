@@ -1,4 +1,4 @@
-defmodule DoctorSchedule.Accounts.User do
+defmodule DoctorSchedule.Accounts.Entities.User do
   use Ecto.Schema
   import Ecto.Changeset
 
