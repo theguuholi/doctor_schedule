@@ -33,5 +33,14 @@ defmodule DoctorSchedule.Accounts.Entities.User do
     |> update_change(:email, &String.downcase/1)
     |> validate_length(:password, min: 6, max: 100, message: "password should have between 6 to 100 chars")
     |> validate_confirmation(:password)
+    |> hash_password()
+  end
+
+  defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+    change(changeset, Argon2.add_hash(password))
+  end
+
+  defp hash_password(changeset) do
+    changeset
   end
 end

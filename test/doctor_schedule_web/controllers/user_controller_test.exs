@@ -5,18 +5,18 @@ defmodule DoctorScheduleWeb.UserControllerTest do
   alias DoctorSchedule.Accounts.Repositories.AccountRepository
 
   @create_attrs %{
-    email: "some email",
+    email: "test@test",
     first_name: "some first_name",
     last_name: "some last_name",
-    password_hash: "some password_hash",
-    role: "some role"
+    password: "some password_hash",
+    password_confirmation: "some password_hash"
   }
   @update_attrs %{
-    email: "some updated email",
+    email: "some@updatedemail",
     first_name: "some updated first_name",
     last_name: "some updated last_name",
-    password_hash: "some updated password_hash",
-    role: "some updated role"
+    password: "some password_hash",
+    password_confirmation: "some password_hash"
   }
   @invalid_attrs %{email: nil, first_name: nil, last_name: nil, password_hash: nil, role: nil}
 
@@ -43,14 +43,7 @@ defmodule DoctorScheduleWeb.UserControllerTest do
 
       conn = get(conn, Routes.user_path(conn, :show, id))
 
-      assert %{
-               "id" => id,
-               "email" => "some email",
-               "first_name" => "some first_name",
-               "last_name" => "some last_name",
-               "password_hash" => "some password_hash",
-               "role" => "some role"
-             } = json_response(conn, 200)["data"]
+      assert id == json_response(conn, 200)["data"]["id"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -68,14 +61,7 @@ defmodule DoctorScheduleWeb.UserControllerTest do
 
       conn = get(conn, Routes.user_path(conn, :show, id))
 
-      assert %{
-               "id" => id,
-               "email" => "some updated email",
-               "first_name" => "some updated first_name",
-               "last_name" => "some updated last_name",
-               "password_hash" => "some updated password_hash",
-               "role" => "some updated role"
-             } = json_response(conn, 200)["data"]
+      assert id == json_response(conn, 200)["data"]["id"]
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
