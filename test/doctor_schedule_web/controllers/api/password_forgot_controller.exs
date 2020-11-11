@@ -12,14 +12,13 @@ defmodule DoctorScheduleWeb.Api.PasswordForgotControllerTest do
     {:ok, conn: conn}
   end
 
-    test "should send email to forgot password", %{conn: conn} do
-      {:ok, user} = AccountRepository.create_user(UserFixture.valid_user())
+  test "should send email to forgot password", %{conn: conn} do
+    {:ok, user} = AccountRepository.create_user(UserFixture.valid_user())
 
-      conn =
-        conn
-        |> post(Routes.api_password_forgot_path(conn, :create), email: user.email)
+    conn =
+      conn
+      |> post(Routes.api_password_forgot_path(conn, :create), email: user.email)
 
-      assert conn.status == 204
-    end
-
+    assert conn.status == 204
+  end
 end
