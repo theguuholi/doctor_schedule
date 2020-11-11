@@ -26,7 +26,6 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-
 config :doctor_schedule, DoctorScheduleWeb.Auth.Guardian,
   issuer: "doctor_schedule",
   secret_key: System.get_env("GUARDIAN_SECRET")
