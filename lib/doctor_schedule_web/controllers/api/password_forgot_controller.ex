@@ -6,6 +6,7 @@ defmodule DoctorScheduleWeb.Api.PasswordForgotController do
 
   def create(conn, %{"email" => email}) do
     with {:ok, _user, _token, _email} <- SendForgotPasswordToEmail.execute(email) do
+      IO.inspect "passou!"
       conn
       |> put_status(:no_content)
       |> put_resp_header("content-type", "application/json")
