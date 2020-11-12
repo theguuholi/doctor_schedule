@@ -1,8 +1,4 @@
 defmodule DoctorSchedule.Accounts.Repositories.TokenRepository do
-  @moduledoc """
-  The Accounts context.
-  """
-
   import Ecto.Query, warn: false
   alias DoctorSchedule.Repo
 

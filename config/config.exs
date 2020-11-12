@@ -30,6 +30,20 @@ config :doctor_schedule, DoctorScheduleWeb.Auth.Guardian,
   issuer: "doctor_schedule",
   secret_key: System.get_env("GUARDIAN_SECRET")
 
+config :doctor_schedule, DoctorSchedule.Shared.MailProvider.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: System.get_env("SMTP_HOST"),
+  hostname: System.get_env("SMTP_HOST"),
+  port: System.get_env("SMTP_PORT"),
+  username: System.get_env("SMTP_USERNAME"),
+  password: System.get_env("SMTP_PASSWORD"),
+  tls: :if_available,
+  allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
+  ssl: false,
+  retries: 1,
+  no_mx_lookup: false,
+  auth: :cram_md5
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
