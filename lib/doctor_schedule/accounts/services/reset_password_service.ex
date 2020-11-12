@@ -1,5 +1,4 @@
 defmodule DoctorSchedule.Accounts.Services.ResetPasswordService do
-
   alias DoctorSchedule.Accounts.Repositories.AccountRepository
   alias DoctorSchedule.Accounts.Repositories.TokenRepository
 
@@ -9,7 +8,9 @@ defmodule DoctorSchedule.Accounts.Services.ResetPasswordService do
     token
     |> TokenRepository.get_by_token()
     |> case do
-      nil -> {:error, "Token does not exist!"}
+      nil ->
+        {:error, "Token does not exist!"}
+
       user_token ->
         user_token
         |> validate_token()
@@ -35,6 +36,4 @@ defmodule DoctorSchedule.Accounts.Services.ResetPasswordService do
     valid_period = token_date.hour + @token_time
     DateTime.utc_now().hour < valid_period
   end
-
-
 end

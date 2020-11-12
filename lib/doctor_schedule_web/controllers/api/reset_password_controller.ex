@@ -5,7 +5,6 @@ defmodule DoctorScheduleWeb.Api.ResetPasswordController do
   action_fallback DoctorScheduleWeb.FallbackController
 
   def create(conn, %{"token" => token, "data" => data}) do
-
     with {:ok, _msg} <- ResetPasswordService.execute(token, data) do
       conn
       |> put_status(:no_content)
