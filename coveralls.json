@@ -4,6 +4,7 @@
     "lib/doctor_schedule/release.ex",
     "lib/doctor_schedule_web.ex",
     "lib/doctor_schedule_web/views/error_helpers.ex",
+    "lib/doctor_schedule_web/live/page_live.ex",
     "test/support/channel_case.ex"
   ],
   "coverage_options": {

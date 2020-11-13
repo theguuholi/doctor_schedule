@@ -18,5 +18,7 @@ config :doctor_schedule, DoctorScheduleWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :doctor_schedule, DoctorSchedule.Shared.MailProvider.Mailer, adapter: Bamboo.TestAdapter
+
 # Print only warnings and errors during test
 config :logger, level: :warn
