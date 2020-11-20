@@ -1,5 +1,5 @@
 defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
-  alias DoctorSchedule.Appointments
+  alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
 
   def execute(appointment) do
     %{
@@ -22,13 +22,13 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
       book_time(date) ->
         {:error, "You can book between 8am until 19pm"}
 
-      Appointments.find_by_appointment_date_and_provider(date, provider_id) != nil ->
+      AppointmentsRepository.find_by_appointment_date_and_provider(date, provider_id) != nil ->
         {:error, "This appointment is already booked"}
 
       true ->
         appointment
         |> Map.put("date", date)
-        |> Appointments.create_appointment()
+        |> AppointmentsRepository.create_appointment()
     end
   end
 

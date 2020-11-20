@@ -1,44 +1,51 @@
 defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
   use DoctorScheduleWeb.ConnCase
 
-  alias DoctorSchedule.Appointments
-  alias DoctorSchedule.Appointments.Appointment
+  import DoctorScheduleWeb.Auth.Guardian
 
-  @create_attrs %{
-    date: ~N[2010-04-17 14:00:00]
-  }
-  @update_attrs %{
-    date: ~N[2011-05-18 15:01:01]
-  }
-  @invalid_attrs %{date: nil}
-
-  def fixture(:appointment) do
-    {:ok, appointment} = Appointments.create_appointment(@create_attrs)
-    appointment
-  end
+  alias DoctorSchedule.Appointments.Entities.Appointment
+  alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
+  alias DoctorSchedule.AppointmentFixture
+  alias DoctorSchedule.UserFixture
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    {:ok, token, _} = encode_and_sign(UserFixture.create_user(), %{}, token_type: :access)
+
+    conn =
+      conn
+      |> put_req_header("accept", "application/json")
+      |> put_req_header("authorization", "bearer " <> token)
+
+    {:ok, conn: conn}
   end
 
   describe "index" do
     test "lists all appointments", %{conn: conn} do
       conn = get(conn, Routes.api_appointment_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+      assert json_response(conn, 200) == []
     end
   end
 
   describe "create appointment" do
     test "renders appointment when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.api_appointment_path(conn, :create), appointment: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+      provider = UserFixture.create_provider()
+
+      now = NaiveDateTime.utc_now()
+
+      date =
+        %NaiveDateTime{now | day: now.day + 1, hour: 10}
+        |> NaiveDateTime.to_string()
+
+      conn =
+        post(conn, Routes.api_appointment_path(conn, :create),
+          appointment: %{date: date, provider_id: provider.id}
+        )
+
+      assert %{"id" => id} = json_response(conn, 201)
 
       conn = get(conn, Routes.api_appointment_path(conn, :show, id))
 
-      assert %{
-               "id" => id,
-               "date" => "2010-04-17T14:00:00"
-             } = json_response(conn, 200)["data"]
+      assert id = json_response(conn, 200)["id"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -59,14 +66,14 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
           appointment: @update_attrs
         )
 
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+      assert %{"id" => ^id} = json_response(conn, 200)
 
       conn = get(conn, Routes.api_appointment_path(conn, :show, id))
 
       assert %{
                "id" => id,
                "date" => "2011-05-18T15:01:01"
-             } = json_response(conn, 200)["data"]
+             } = json_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn, appointment: appointment} do
@@ -93,7 +100,6 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
   end
 
   defp create_appointment(_) do
-    appointment = fixture(:appointment)
-    %{appointment: appointment}
+    %{appointment: AppointmentFixture.appointment_fixture()}
   end
 end

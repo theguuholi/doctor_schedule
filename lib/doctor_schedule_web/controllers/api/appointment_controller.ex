@@ -1,14 +1,14 @@
 defmodule DoctorScheduleWeb.Api.AppointmentController do
   use DoctorScheduleWeb, :controller
 
-  alias DoctorSchedule.Appointments
-  alias DoctorSchedule.Appointments.Appointment
+  alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
+  alias DoctorSchedule.Appointments.Entities.Appointment
   alias DoctorSchedule.Appointments.Services.CreateAppointment
 
   action_fallback DoctorScheduleWeb.FallbackController
 
   def index(conn, _params) do
-    appointments = Appointments.list_appointments()
+    appointments = AppointmentsRepository.list_appointments()
     render(conn, "index.json", appointments: appointments)
   end
 
@@ -29,15 +29,15 @@ defmodule DoctorScheduleWeb.Api.AppointmentController do
   end
 
   def show(conn, %{"id" => id}) do
-    appointment = Appointments.get_appointment!(id)
+    appointment = AppointmentsRepository.get_appointment!(id)
     render(conn, "show.json", appointment: appointment)
   end
 
   def update(conn, %{"id" => id, "appointment" => appointment_params}) do
-    appointment = Appointments.get_appointment!(id)
+    appointment = AppointmentsRepository.get_appointment!(id)
 
     with {:ok, %Appointment{} = appointment} <-
-           Appointments.update_appointment(appointment, appointment_params) do
+           AppointmentsRepository.update_appointment(appointment, appointment_params) do
       render(conn, "show.json", appointment: appointment)
     end
   end
