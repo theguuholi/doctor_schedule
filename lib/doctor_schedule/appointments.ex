@@ -21,6 +21,9 @@ defmodule DoctorSchedule.Appointments do
     Repo.all(Appointment)
   end
 
+  def find_by_appointment_date_and_provider(date, provider_id),
+    do: Repo.get_by(Appointment, date: date, provider_id: provider_id)
+
   @doc """
   Gets a single appointment.
 
@@ -53,6 +56,7 @@ defmodule DoctorSchedule.Appointments do
     %Appointment{}
     |> Appointment.changeset(attrs)
     |> Repo.insert()
+    |> IO.inspect()
   end
 
   @doc """

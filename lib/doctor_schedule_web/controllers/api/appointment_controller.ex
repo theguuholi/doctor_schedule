@@ -3,6 +3,7 @@ defmodule DoctorScheduleWeb.Api.AppointmentController do
 
   alias DoctorSchedule.Appointments
   alias DoctorSchedule.Appointments.Appointment
+  alias DoctorSchedule.Appointments.Services.CreateAppointment
 
   action_fallback DoctorScheduleWeb.FallbackController
 
@@ -12,8 +13,13 @@ defmodule DoctorScheduleWeb.Api.AppointmentController do
   end
 
   def create(conn, %{"appointment" => appointment_params}) do
+    user = Guardian.Plug.current_resource(conn)
+    appointment_params =
+      appointment_params
+      |> Map.put("user_id", user.id)
+
     with {:ok, %Appointment{} = appointment} <-
-           Appointments.create_appointment(appointment_params) do
+           CreateAppointment.execute(appointment_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.api_appointment_path(conn, :show, appointment))

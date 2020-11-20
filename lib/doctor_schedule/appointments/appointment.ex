@@ -18,6 +18,8 @@ defmodule DoctorSchedule.Appointments.Appointment do
   def changeset(appointment, attrs) do
     appointment
     |> cast(attrs, [:date, :user_id, :provider_id])
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:provider_id)
     |> validate_required([:date, :user_id, :provider_id])
   end
 end

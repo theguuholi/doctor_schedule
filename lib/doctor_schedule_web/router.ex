@@ -32,12 +32,12 @@ defmodule DoctorScheduleWeb.Router do
     post "/password/forgot", PasswordForgotController, :create
     resources "/sessions", SessionController
     resources "/users", UserController, only: [:create]
-
-    resources "/appointments", AppointmentController
   end
 
   scope "/api", DoctorScheduleWeb.Api, as: :api do
     pipe_through [:api, :auth]
+
+    resources "/appointments", AppointmentController
     resources "/users", UserController, except: [:create]
   end
 
