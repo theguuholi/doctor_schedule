@@ -8,12 +8,14 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
       "user_id" => user_id
     } = appointment
 
-    date = date
-    |> start_hour()
+    date =
+      date
+      |> start_hour()
 
     cond do
       is_before?(date) ->
         {:error, "You cannot create an appointment in the past"}
+
       provider_id == user_id ->
         {:error, "You cannot create an appointment to yourself"}
 
@@ -35,16 +37,16 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
     hour < 8 || hour > 19
   end
 
-
   defp is_before?(date) do
     NaiveDateTime.utc_now()
     |> NaiveDateTime.compare(date) == :gt
   end
 
-
   defp start_hour(date) do
-    date = date
-    |> NaiveDateTime.from_iso8601!()
+    date =
+      date
+      |> NaiveDateTime.from_iso8601!()
+
     %NaiveDateTime{date | minute: 0, second: 0, microsecond: {0, 0}}
   end
 end

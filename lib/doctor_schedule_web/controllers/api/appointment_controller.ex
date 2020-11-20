@@ -14,6 +14,7 @@ defmodule DoctorScheduleWeb.Api.AppointmentController do
 
   def create(conn, %{"appointment" => appointment_params}) do
     user = Guardian.Plug.current_resource(conn)
+
     appointment_params =
       appointment_params
       |> Map.put("user_id", user.id)
