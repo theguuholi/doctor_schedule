@@ -3,7 +3,7 @@ defmodule DoctorSchedule.Accounts.Entities.User do
   import Ecto.Changeset
 
   alias DoctorSchedule.Accounts.Entities.UserToken
-  alias DoctorSchedule.Appointments.Appointment
+  alias DoctorSchedule.Appointments.Entities.Appointment
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @derive {Phoenix.Param, key: :id}
