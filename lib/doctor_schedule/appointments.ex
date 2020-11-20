@@ -56,7 +56,6 @@ defmodule DoctorSchedule.Appointments do
     %Appointment{}
     |> Appointment.changeset(attrs)
     |> Repo.insert()
-    |> IO.inspect()
   end
 
   @doc """
