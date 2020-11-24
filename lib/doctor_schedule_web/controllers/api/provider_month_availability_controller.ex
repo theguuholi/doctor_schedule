@@ -12,7 +12,9 @@ defmodule DoctorScheduleWeb.Api.ProviderMonthAvailabilityController do
     year = String.to_integer(year)
     month = String.to_integer(month)
 
-    days_month_availability = MonthAvailabilityService.execute(provider_id, year, month)
+    days_month_availability =
+      MonthAvailabilityService.execute(provider_id, year, month)
+      |> IO.inspect()
 
     conn
     |> json(days_month_availability)
