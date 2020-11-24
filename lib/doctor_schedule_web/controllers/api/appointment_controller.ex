@@ -1,8 +1,8 @@
 defmodule DoctorScheduleWeb.Api.AppointmentController do
   use DoctorScheduleWeb, :controller
 
-  alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
   alias DoctorSchedule.Appointments.Entities.Appointment
+  alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
   alias DoctorSchedule.Appointments.Services.CreateAppointment
 
   action_fallback DoctorScheduleWeb.FallbackController
@@ -43,9 +43,9 @@ defmodule DoctorScheduleWeb.Api.AppointmentController do
   end
 
   def delete(conn, %{"id" => id}) do
-    appointment = Appointments.get_appointment!(id)
+    appointment = AppointmentsRepository.get_appointment!(id)
 
-    with {:ok, %Appointment{}} <- Appointments.delete_appointment(appointment) do
+    with {:ok, %Appointment{}} <- AppointmentsRepository.delete_appointment(appointment) do
       send_resp(conn, :no_content, "")
     end
   end

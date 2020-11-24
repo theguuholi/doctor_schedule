@@ -3,20 +3,20 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
 
   import DoctorScheduleWeb.Auth.Guardian
 
-  alias DoctorSchedule.Appointments.Entities.Appointment
-  alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
   alias DoctorSchedule.AppointmentFixture
+  alias DoctorSchedule.Appointments.Entities.Appointment
   alias DoctorSchedule.UserFixture
 
   setup %{conn: conn} do
-    {:ok, token, _} = encode_and_sign(UserFixture.create_user(), %{}, token_type: :access)
+    user = UserFixture.create_user()
+    {:ok, token, _} = encode_and_sign(user, %{}, token_type: :access)
 
     conn =
       conn
       |> put_req_header("accept", "application/json")
       |> put_req_header("authorization", "bearer " <> token)
 
-    {:ok, conn: conn}
+    {:ok, conn: conn, user_id: user.id}
   end
 
   describe "index" do
@@ -47,11 +47,6 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
 
       assert id = json_response(conn, 200)["id"]
     end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.api_appointment_path(conn, :create), appointment: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
-    end
   end
 
   describe "update appointment" do
@@ -61,9 +56,11 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
       conn: conn,
       appointment: %Appointment{id: id} = appointment
     } do
+      now = DateTime.utc_now()
+
       conn =
         put(conn, Routes.api_appointment_path(conn, :update, appointment),
-          appointment: @update_attrs
+          appointment: %{date: now}
         )
 
       assert %{"id" => ^id} = json_response(conn, 200)
@@ -72,14 +69,14 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
 
       assert %{
                "id" => id,
-               "date" => "2011-05-18T15:01:01"
+               "date" => now
              } = json_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn, appointment: appointment} do
       conn =
         put(conn, Routes.api_appointment_path(conn, :update, appointment),
-          appointment: @invalid_attrs
+          appointment: %{date: nil}
         )
 
       assert json_response(conn, 422)["errors"] != %{}
@@ -99,7 +96,8 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
     end
   end
 
-  defp create_appointment(_) do
-    %{appointment: AppointmentFixture.appointment_fixture()}
+  defp create_appointment(setup_conn) do
+    user_id = setup_conn.user_id
+    %{appointment: AppointmentFixture.appointment_fixture(user_id)}
   end
 end
