@@ -5,7 +5,7 @@ defmodule DoctorSchedule.Appointments.Services.MonthAvailabilityService do
     {:ok, this_month} = Date.new(year, month, 1)
     schedules_month = ProviderRepository.all_month_from_provider(provider_id, year, month)
 
-    today = Date.utc_today().day
+    today = Date.utc_today()
 
     1..Date.days_in_month(this_month)
     |> Enum.map(&%{day: &1, available: is_available?(&1, today, schedules_month)})
