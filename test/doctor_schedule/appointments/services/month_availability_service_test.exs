@@ -71,7 +71,7 @@ defmodule DoctorSchedule.Appointments.Services.MonthAvailabilityServiceTest do
                %{available: false, day: 11},
                %{available: true, day: 12},
                %{available: true, day: 13},
-               %{available: true, day: 14},
+               %{available: false, day: 14},
                %{available: true, day: 15},
                %{available: true, day: 16},
                %{available: true, day: 17},
@@ -102,25 +102,24 @@ defmodule DoctorSchedule.Appointments.Services.MonthAvailabilityServiceTest do
         user_id: user_id
       }
       |> AppointmentsRepository.create_appointment()
-      |> IO.inspect()
     end)
   end
 
   defp date_list do
     [
-      ~N[2010-12-14 08:00:00],
-      ~N[2010-12-14 09:00:00],
-      ~N[2010-12-14 10:00:00],
-      ~N[2010-12-14 11:00:00],
-      ~N[2010-12-14 12:00:00],
-      ~N[2010-12-14 13:00:00],
-      ~N[2010-12-14 14:00:00],
-      ~N[2010-12-14 15:00:00],
-      ~N[2010-12-14 16:00:00],
-      ~N[2010-12-14 17:00:00],
-      ~N[2010-12-14 18:00:00],
-      ~N[2010-12-14 19:00:00],
-      ~N[2010-12-14 20:00:00]
+      ~N[2020-12-14 08:00:00],
+      ~N[2020-12-14 09:00:00],
+      ~N[2020-12-14 10:00:00],
+      ~N[2020-12-14 11:00:00],
+      ~N[2020-12-14 12:00:00],
+      ~N[2020-12-14 13:00:00],
+      ~N[2020-12-14 14:00:00],
+      ~N[2020-12-14 15:00:00],
+      ~N[2020-12-14 16:00:00],
+      ~N[2020-12-14 17:00:00],
+      ~N[2020-12-14 18:00:00],
+      ~N[2020-12-14 19:00:00],
+      ~N[2020-12-14 20:00:00]
     ]
   end
 end

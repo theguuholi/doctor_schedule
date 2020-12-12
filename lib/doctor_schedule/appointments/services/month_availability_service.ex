@@ -4,9 +4,7 @@ defmodule DoctorSchedule.Appointments.Services.MonthAvailabilityService do
   def execute(provider_id, year, month) do
     {:ok, this_month} = Date.new(year, month, 1)
 
-    schedules_month =
-      ProviderRepository.all_month_from_provider(provider_id, year, month)
-      |> IO.inspect()
+    schedules_month = ProviderRepository.all_month_from_provider(provider_id, year, month)
 
     today = Date.utc_today()
 
