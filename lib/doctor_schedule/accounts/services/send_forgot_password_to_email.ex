@@ -15,7 +15,8 @@ defmodule DoctorSchedule.Accounts.Services.SendForgotPasswordToEmail do
         {:error, msg}
 
       {:ok, token, user} ->
-        {:ok, user, token, send_email(token, user)}
+        Task.async(fn -> send_email(token, user) end)
+        {:ok, user, token, ""}
     end
   end
 

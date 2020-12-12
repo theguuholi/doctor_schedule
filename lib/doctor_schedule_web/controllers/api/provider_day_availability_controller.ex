@@ -10,9 +10,7 @@ defmodule DoctorScheduleWeb.Api.ProviderDayAvailabilityController do
       }) do
     date = Date.from_iso8601!(date)
 
-    days_month_availability =
-      DayAvailabilityService.execute(provider_id, date)
-      |> IO.inspect()
+    days_month_availability = DayAvailabilityService.execute(provider_id, date)
 
     conn
     |> json(days_month_availability)
