@@ -28,7 +28,7 @@ config :phoenix, :json_library, Jason
 
 config :doctor_schedule, DoctorScheduleWeb.Auth.Guardian,
   issuer: "doctor_schedule",
-  secret_key: System.get_env("GUARDIAN_SECRET")
+  secret_key: System.get_env("GUARDIAN_SECRET") || "123123"
 
 config :doctor_schedule, DoctorSchedule.Shared.MailProvider.Mailer,
   adapter: Bamboo.SMTPAdapter,

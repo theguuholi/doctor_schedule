@@ -22,3 +22,6 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+https://github.com/elixir-ecto/ecto_sql/blob/52f9d27a7ad86442f442bad2f7ebd19ba09ddc61/lib/ecto/adapters/myxql/connection.ex#L902-L905
