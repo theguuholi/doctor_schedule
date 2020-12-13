@@ -6,11 +6,21 @@ defmodule DoctorSchedule.Accounts.Services.SendForgotPasswordToEmailTest do
 
   alias DoctorSchedule.UserFixture
 
-  test "execute/2 should reset password " do
+  test "execute/1 should reset password " do
     user = UserFixture.create_user()
 
-    {:ok, _user, _token, sent_email} = SendForgotPasswordToEmail.execute(user.email)
-    assert sent_email.to == [{"some first_name", "test@test"}]
+    {:ok, user_response, _token} = SendForgotPasswordToEmail.execute(user.email)
+    assert user_response.id == user.id
+  end
+
+  test "send_email/2 should reset password " do
+    sent_email =
+      SendForgotPasswordToEmail.send_email(
+        "123123123",
+        %{first_name: "123", email: "123"}
+      )
+
+    assert sent_email.to == [{"123", "123"}]
     assert sent_email.html_body =~ "Ola!"
     assert sent_email.from == {"Doctor Schedule Team", "adm@doctorschedule.com"}
     assert_delivered_email(sent_email)
