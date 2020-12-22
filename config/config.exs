@@ -44,6 +44,10 @@ config :doctor_schedule, DoctorSchedule.Shared.MailProvider.Mailer,
   no_mx_lookup: false,
   auth: :cram_md5
 
+config :doctor_schedule, :mongodb,
+  url: System.get_env("MONGO_URL") || "mongodb://localhost:27017/doctor_schedule",
+  url: System.get_env("MONGO_POOL_SIZE") || "10"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

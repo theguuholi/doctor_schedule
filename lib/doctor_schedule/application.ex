@@ -7,7 +7,8 @@ defmodule DoctorSchedule.Application do
 
   def start(_type, _args) do
     import Supervisor.Spec
-    mongo_url = "mongodb://localhost:27017/doctor_schedule"
+    url = Application.get_env(:doctor_schedule, :mongo_db)[:url]
+    pool_size = Application.get_env(:doctor_schedule, :mongo_db)[:pool_size]
 
     children = [
       # Start the Ecto repository
@@ -18,7 +19,7 @@ defmodule DoctorSchedule.Application do
       {Phoenix.PubSub, name: DoctorSchedule.PubSub},
       # Start the Endpoint (http/https)
       DoctorScheduleWeb.Endpoint,
-      worker(Mongo, [[name: :mongo, url: mongo_url, pool_size: 10]])
+      worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]])
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
       # {DoctorSchedule.Worker, arg}
     ]
