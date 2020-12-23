@@ -15,17 +15,8 @@ defmodule DoctorSchedule.Accounts.Services.CreateUser do
     AccountRepository.create_user(user)
     |> case do
       {:ok, user} ->
-        ProviderCache.get(@key)
-        |> case do
-          {:ok, _users} ->
-            ProviderCache.save(@key, AccountRepository.list_providers())
-
-            {:ok, user}
-
-          {:not_found, _} ->
-            ProviderCache.save(@key, AccountRepository.list_providers())
-            {:ok, user}
-        end
+        ProviderCache.delete(@key)
+        {:ok, user}
 
       {:error, changeset} ->
         {:error, changeset}

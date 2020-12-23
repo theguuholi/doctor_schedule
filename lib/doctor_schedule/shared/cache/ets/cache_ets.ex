@@ -13,6 +13,11 @@ defmodule DoctorSchedule.Shared.Cache.Ets.CacheEts do
     {:noreply, name}
   end
 
+  def handle_cast({:delete, key}, name) do
+    :ets.delete(name, key)
+    {:noreply, name}
+  end
+
   def handle_call({:get, key}, _from, name) do
     reply =
       :ets.lookup(name, key)

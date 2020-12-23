@@ -3,14 +3,17 @@ defmodule DoctorSchedule.Appointments.Services.DayAvailabilityService do
   alias DoctorSchedule.Shared.Cache.Ets.Implementations.ScheduleCache
 
   def execute(provider_id, date) do
-    cache_key = "provider-scheules:#{provider_id}:#{date}"
+    cache_key = "provider-schedules:#{provider_id}:#{date}"
 
     ScheduleCache.get(cache_key)
     |> case do
       {:ok, day_availability} ->
+        IO.inspect("com cache")
         day_availability
 
       {:not_found, []} ->
+        IO.inspect("sem cache")
+
         appointments = ProviderRepository.all_day_fom_provider(provider_id, date)
 
         schedule =
