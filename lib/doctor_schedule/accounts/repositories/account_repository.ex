@@ -21,6 +21,16 @@ defmodule DoctorSchedule.Accounts.Repositories.AccountRepository do
     Repo.all(User)
   end
 
+  def list_providers do
+    query =
+      from u in User,
+        where:
+          u.role ==
+            ^"admin"
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single user.
 

@@ -3,13 +3,20 @@ defmodule DoctorScheduleWeb.Api.UserController do
 
   alias DoctorSchedule.Accounts.Entities.User
   alias DoctorSchedule.Accounts.Repositories.AccountRepository
+  alias DoctorSchedule.Accounts.Services.ListProviders
 
   action_fallback DoctorScheduleWeb.FallbackController
 
-  def index(conn, _params) do
-    users = AccountRepository.list_users()
+  def index(conn, params) do
+    users =
+      params["only_providers"]
+      |> get_users()
+
     render(conn, "index.json", users: users)
   end
+
+  defp get_users("1"), do: ListProviders.execute()
+  defp get_users(_), do: AccountRepository.list_users()
 
   def create(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- AccountRepository.create_user(user_params) do

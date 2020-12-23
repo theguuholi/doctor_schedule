@@ -4,6 +4,7 @@ defmodule DoctorSchedule.Application do
   @moduledoc false
 
   use Application
+  alias DoctorSchedule.Shared.Cache.Ets.CacheEts
 
   def start(_type, _args) do
     import Supervisor.Spec
@@ -19,7 +20,8 @@ defmodule DoctorSchedule.Application do
       {Phoenix.PubSub, name: DoctorSchedule.PubSub},
       # Start the Endpoint (http/https)
       DoctorScheduleWeb.Endpoint,
-      worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]])
+      worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]]),
+      worker(CacheEts, [])
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
       # {DoctorSchedule.Worker, arg}
     ]
