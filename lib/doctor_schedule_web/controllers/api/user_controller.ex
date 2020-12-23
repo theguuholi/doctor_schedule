@@ -3,8 +3,8 @@ defmodule DoctorScheduleWeb.Api.UserController do
 
   alias DoctorSchedule.Accounts.Entities.User
   alias DoctorSchedule.Accounts.Repositories.AccountRepository
-  alias DoctorSchedule.Accounts.Services.ListProviders
   alias DoctorSchedule.Accounts.Services.CreateUser
+  alias DoctorSchedule.Accounts.Services.ListProviders
 
   action_fallback DoctorScheduleWeb.FallbackController
 

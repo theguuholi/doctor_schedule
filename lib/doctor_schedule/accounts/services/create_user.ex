@@ -4,12 +4,10 @@ defmodule DoctorSchedule.Accounts.Services.CreateUser do
   @key "providers-list"
 
   def execute(user) do
-    cond do
-      user["role"] == "admin" ->
-        create_user_cache(user)
-
-      true ->
-        AccountRepository.create_user(user)
+    if user["role"] == "admin" do
+      create_user_cache(user)
+    else
+      AccountRepository.create_user(user)
     end
   end
 

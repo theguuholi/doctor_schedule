@@ -1,28 +1,26 @@
 defmodule DoctorSchedule.Shared.Cache.Ets.CacheEts do
   use GenServer
 
-  @db :providers
+  def start_link(name), do: GenServer.start_link(__MODULE__, name, name: name)
 
-  def start_link(), do: GenServer.start_link(__MODULE__, %{}, name: CacheEts)
-
-  def init(state) do
-    :ets.new(@db, [:set, :public, :named_table])
-    {:ok, state}
+  def init(name) do
+    :ets.new(name, [:set, :public, :named_table])
+    {:ok, name}
   end
 
-  def handle_cast({:put, key, value}, state) do
-    :ets.insert(@db, {key, value})
-    {:noreply, state}
+  def handle_cast({:put, key, value}, name) do
+    :ets.insert(name, {key, value})
+    {:noreply, name}
   end
 
-  def handle_call({:get, key}, _from, state) do
+  def handle_call({:get, key}, _from, name) do
     reply =
-      :ets.lookup(@db, key)
+      :ets.lookup(name, key)
       |> case do
         [] -> {:not_found, []}
         [{_key, value}] -> {:ok, value}
       end
 
-    {:reply, reply, state}
+    {:reply, reply, name}
   end
 end

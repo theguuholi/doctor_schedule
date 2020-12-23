@@ -2,7 +2,7 @@ defmodule DoctorSchedule.Accounts.Services.ListProviders do
   alias DoctorSchedule.Accounts.Repositories.AccountRepository
   alias DoctorSchedule.Shared.Cache.Ets.Implementations.ProviderCache
   @key "providers-list"
-  def execute() do
+  def execute do
     ProviderCache.get(@key)
     |> case do
       {:ok, providers} ->

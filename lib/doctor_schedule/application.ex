@@ -21,7 +21,8 @@ defmodule DoctorSchedule.Application do
       # Start the Endpoint (http/https)
       DoctorScheduleWeb.Endpoint,
       worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]]),
-      worker(CacheEts, [])
+      build_cache(:providers),
+      build_cache(:schedules)
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
       # {DoctorSchedule.Worker, arg}
     ]
@@ -31,6 +32,8 @@ defmodule DoctorSchedule.Application do
     opts = [strategy: :one_for_one, name: DoctorSchedule.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  defp build_cache(name), do: %{id: name, start: {CacheEts, :start_link, [name]}}
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
