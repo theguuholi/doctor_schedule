@@ -12,9 +12,9 @@ defmodule DoctorSchedule.Accounts.Services.CreateUserTest do
       "password_confirmation" => "5@3.com",
       "role" => "admin"
     }
+
     {:ok, user} = CreateUser.execute(user_admin)
 
     assert user.email == "9@3.com"
-
   end
 end

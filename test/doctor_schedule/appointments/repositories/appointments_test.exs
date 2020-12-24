@@ -26,7 +26,7 @@ defmodule DoctorSchedule.AppointmentsTest do
 
     test "create_appointment/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} =
-        AppointmentsRepository.create_appointment(AppointmentFixture.invalid_appointment())
+               AppointmentsRepository.create_appointment(AppointmentFixture.invalid_appointment())
     end
 
     test "update_appointment/2 with valid data updates the appointment" do

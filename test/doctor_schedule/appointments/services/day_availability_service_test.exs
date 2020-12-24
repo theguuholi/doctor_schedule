@@ -28,6 +28,5 @@ defmodule DoctorSchedule.Appointments.Services.DayAvailabilityServiceTest do
     assert @result == response
     cache_response = DayAvailabilityService.execute(provider.id, date)
     assert @result == cache_response
-
   end
 end
