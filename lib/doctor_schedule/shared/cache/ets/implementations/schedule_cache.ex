@@ -5,7 +5,7 @@ defmodule DoctorSchedule.Shared.Cache.Ets.Implementations.ScheduleCache do
 
   def save(key, value), do: Redix.command(@conn, ["SET", key, encode_value(value)])
 
-  #Wrappers
+  # Wrappers
   defp decode_value({:ok, nil}), do: {:not_found, "not found"}
 
   defp decode_value({:ok, value}) do
@@ -13,7 +13,7 @@ defmodule DoctorSchedule.Shared.Cache.Ets.Implementations.ScheduleCache do
       value
       |> Base.decode16()
 
-    binary |> :erlang.binary_to_term()
+    {:ok, binary |> :erlang.binary_to_term()}
   end
 
   defp encode_value(value), do: value |> :erlang.term_to_binary() |> Base.encode16()

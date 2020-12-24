@@ -8,12 +8,9 @@ defmodule DoctorSchedule.Appointments.Services.DayAvailabilityService do
     ScheduleCache.get(cache_key)
     |> case do
       {:ok, day_availability} ->
-        IO.inspect("com cache")
         day_availability
 
-      {:not_found, []} ->
-        IO.inspect("sem cache")
-
+      {:not_found, _} ->
         appointments = ProviderRepository.all_day_fom_provider(provider_id, date)
 
         schedule =
