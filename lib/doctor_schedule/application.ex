@@ -11,6 +11,8 @@ defmodule DoctorSchedule.Application do
     url = Application.get_env(:doctor_schedule, :mongo_db)[:url]
     pool_size = Application.get_env(:doctor_schedule, :mongo_db)[:pool_size]
 
+    redis_url = Application.get_env(:doctor_schedule, :redis_config)[:url]
+
     children = [
       # Start the Ecto repository
       DoctorSchedule.Repo,
@@ -21,6 +23,7 @@ defmodule DoctorSchedule.Application do
       # Start the Endpoint (http/https)
       DoctorScheduleWeb.Endpoint,
       worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]]),
+      worker(Redix, [redis_url, [name: :redis_server]]),
       build_cache(:providers),
       build_cache(:schedules)
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
