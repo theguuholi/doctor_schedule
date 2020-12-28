@@ -2,7 +2,10 @@ defmodule DoctorSchedule.Appointments.Services.DayAvailabilityServiceTest do
   use DoctorSchedule.DataCase
 
   alias DoctorSchedule.Appointments.Services.DayAvailabilityService
+  alias DoctorSchedule.Shared.Cache.Ets.Implementations.ScheduleCache
   alias DoctorSchedule.UserFixture
+
+  import Mock
 
   @result [
     %{available: false, hour: 8},
@@ -23,10 +26,21 @@ defmodule DoctorSchedule.Appointments.Services.DayAvailabilityServiceTest do
     provider = UserFixture.create_provider()
     date = Date.utc_today()
     date = %Date{date | day: date.day - 1}
-    response = DayAvailabilityService.execute(provider.id, date)
 
-    assert @result == response
-    cache_response = DayAvailabilityService.execute(provider.id, date)
-    assert @result == cache_response
+    with_mock Redix, command: fn _, _ -> {:ok, nil} end do
+      response = DayAvailabilityService.execute(provider.id, date)
+      assert @result == response
+    end
+  end
+
+  test "it should see all available hour with and with cache" do
+    provider = UserFixture.create_provider()
+    date = Date.utc_today()
+    date = %Date{date | day: date.day - 1}
+
+    with_mock ScheduleCache, get: fn _ -> {:ok, @result} end do
+      response = DayAvailabilityService.execute(provider.id, date)
+      assert @result == response
+    end
   end
 end
