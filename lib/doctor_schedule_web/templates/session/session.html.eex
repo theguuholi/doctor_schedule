@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="forms-container">
+    <div class="signin-signup">
+      <%= render DoctorScheduleWeb.SessionView, "login.html" %>
+      <%= render DoctorScheduleWeb.SessionView, "signup.html" %>
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h3>Nao tem conta?</h3>
+        <p>Basta clicar no botao abaixo</p>
+        <button class="btn transparent" id="sign-up-btn">Cadastrar</button>
+      </div>
+    </div>
+
+
+    <div class="panel right-panel">
+      <div class="content">
+        <h3>Ja possui conta?</h3>
+        <p>Basta clicar no botao abaixo</p>
+        <button class="btn transparent" id="sign-in-btn">Logar</button>
+      </div>
+    </div>
+  </div>
+</div>

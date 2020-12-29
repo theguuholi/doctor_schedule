@@ -1,0 +1,15 @@
+<form action="" id="sign-in-form">
+  <h2 class="title">Faca seu login</h2>
+  <div class="input-field">
+    <i class="fas fa-user"></i>
+    <input type="text" placeholder="E-mail">
+  </div>
+
+  <div class="input-field">
+    <i class="fas fa-lock"></i>
+    <input type="password" placeholder="Senha">
+  </div>
+
+  <input type="submit" value="Entrar" class="btn solid">
+  <p>Esqueci minha Senha</p>
+</form>

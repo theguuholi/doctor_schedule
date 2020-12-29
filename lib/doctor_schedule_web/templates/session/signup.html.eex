@@ -1,0 +1,25 @@
+<form action="" id="sign-up-form">
+  <h2 class="title">Faca seu Cadastro</h2>
+  <div class="input-field">
+    <i class="fas fa-user"></i>
+    <input type="text" placeholder="Nome">
+  </div>
+  <div class="input-field">
+    <i class="fas fa-user"></i>
+    <input type="text" placeholder="Sobenome">
+  </div>
+  <div class="input-field">
+    <i class="fas fa-envelope"></i>
+    <input type="email" placeholder="E-mail">
+  </div>
+  <div class="input-field">
+    <i class="fas fa-lock"></i>
+    <input type="password" placeholder="Senha">
+  </div>
+  <div class="input-field">
+    <i class="fas fa-lock"></i>
+    <input type="password" placeholder="Confirmar Senha">
+  </div>
+
+  <input type="submit" value="Cadastrar" class="btn solid">
+</form>
