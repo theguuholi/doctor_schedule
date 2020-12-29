@@ -44,6 +44,13 @@ config :doctor_schedule, DoctorSchedule.Shared.MailProvider.Mailer,
   no_mx_lookup: false,
   auth: :cram_md5
 
+config :doctor_schedule, :mongo_db,
+  url: System.get_env("MONGO_URL") || "mongodb://localhost:27017/doctor_schedule",
+  pool_size: (System.get_env("MONGO_POOL_SIZE") || "10") |> String.to_integer()
+
+config :doctor_schedule, :redis_config,
+  url: System.get_env("REDIS_URL") || "redis://localhost:6379"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -6,6 +6,7 @@
     "lib/doctor_schedule_web/views/error_helpers.ex",
     "lib/doctor_schedule_web/live/page_live.ex",
     "test/support/channel_case.ex",
+    "test/support/data_case.ex",
     "test/support/appointment_fixture.ex"
   ],
   "coverage_options": {
