@@ -9,10 +9,21 @@ services:
       - "8080:4000"
     depends_on:
       - db
+      - mongo
+      - redis-app
     links:
       - db
-    environment:
-      HOST_DB: "db"
+    env_file:
+      - ./compose.env
+    # environment:
+      # HOST_DB: "db"
+      # MONGO_URL: "mongodb://mongo:27017/doctor_schedule"
+      # REDIS_URL: "redis://redis-app:6379"
+      # GUARDIAN_SECRET: "jSZXHnu1mN7Y4ZY65ghBSeJIZtowq/EsBSllejDFfGCYosYJ5Faa8ZkAzoqmsjoR"
+      # SMTP_HOST: smtp.ethereal.email
+      # SMTP_PORT: 587
+      # SMTP_USERNAME: alaina.erdman@ethereal.email
+      # SMTP_PASSWORD: b4c71ee2PW4bRkKzKm
   db:
     image: postgres:12
     environment:
@@ -20,3 +31,13 @@ services:
       POSTGRES_USER: postgres
     ports:
       - "5432:5432"
+  mongo:
+    restart: always
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_INITDB_DATABASE=doctor_schedule
+  redis-app:
+    image: redis
+    ports:
+      - "6379:6379"

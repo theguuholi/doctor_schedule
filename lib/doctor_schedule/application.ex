@@ -4,8 +4,15 @@ defmodule DoctorSchedule.Application do
   @moduledoc false
 
   use Application
+  alias DoctorSchedule.Shared.Cache.Ets.CacheEts
 
   def start(_type, _args) do
+    import Supervisor.Spec
+    url = Application.get_env(:doctor_schedule, :mongo_db)[:url]
+    pool_size = Application.get_env(:doctor_schedule, :mongo_db)[:pool_size]
+
+    redis_url = Application.get_env(:doctor_schedule, :redis_config)[:url]
+
     children = [
       # Start the Ecto repository
       DoctorSchedule.Repo,
@@ -14,7 +21,10 @@ defmodule DoctorSchedule.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: DoctorSchedule.PubSub},
       # Start the Endpoint (http/https)
-      DoctorScheduleWeb.Endpoint
+      DoctorScheduleWeb.Endpoint,
+      worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]]),
+      worker(Redix, [redis_url, [name: :redis_server]]),
+      build_cache(:providers)
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
       # {DoctorSchedule.Worker, arg}
     ]
@@ -24,6 +34,8 @@ defmodule DoctorSchedule.Application do
     opts = [strategy: :one_for_one, name: DoctorSchedule.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  defp build_cache(name), do: %{id: name, start: {CacheEts, :start_link, [name]}}
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.

@@ -8,13 +8,13 @@ defmodule DoctorSchedule.AppointmentsTest do
     alias DoctorSchedule.Appointments.Entities.Appointment
 
     test "list_appointments/0 returns all appointments" do
-      appointment = AppointmentFixture.appointment_fixture()
-      assert AppointmentsRepository.list_appointments() == [appointment]
+      AppointmentFixture.appointment_fixture()
+      assert AppointmentsRepository.list_appointments() |> Enum.count() == 1
     end
 
     test "get_appointment!/1 returns the appointment with given id" do
       appointment = AppointmentFixture.appointment_fixture()
-      assert AppointmentsRepository.get_appointment!(appointment.id) == appointment
+      assert AppointmentsRepository.get_appointment!(appointment.id).id == appointment.id
     end
 
     test "create_appointment/1 with valid data creates a appointment" do
@@ -50,7 +50,7 @@ defmodule DoctorSchedule.AppointmentsTest do
                  AppointmentFixture.invalid_appointment()
                )
 
-      assert appointment == AppointmentsRepository.get_appointment!(appointment.id)
+      assert appointment.id == AppointmentsRepository.get_appointment!(appointment.id).id
     end
 
     test "delete_appointment/1 deletes the appointment" do

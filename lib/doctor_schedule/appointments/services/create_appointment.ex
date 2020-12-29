@@ -1,5 +1,7 @@
 defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
   alias DoctorSchedule.Appointments.Repositories.AppointmentsRepository
+  alias DoctorSchedule.Shared.Cache.Ets.Implementations.ScheduleCache
+  alias DoctorSchedule.Shared.Repositories.Notification
 
   def execute(appointment) do
     %{
@@ -7,6 +9,9 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
       "provider_id" => provider_id,
       "user_id" => user_id
     } = appointment
+
+    date_cache = date |> NaiveDateTime.from_iso8601!() |> NaiveDateTime.to_date()
+    cache_key = "provider-schedules:#{provider_id}:#{date_cache}"
 
     date =
       date
@@ -26,10 +31,31 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointment do
         {:error, "This appointment is already booked"}
 
       true ->
-        appointment
-        |> Map.put("date", date)
-        |> AppointmentsRepository.create_appointment()
+        {:ok, appointment} =
+          appointment
+          |> Map.put("date", date)
+          |> AppointmentsRepository.create_appointment()
+
+        ScheduleCache.delete(cache_key)
+        Task.async(fn -> send_notification(appointment) end)
+
+        {:ok, appointment}
     end
+  end
+
+  def send_notification(appointment),
+    do:
+      %{
+        recipient_id: appointment.provider_id,
+        content:
+          "New schedule to the Doctor #{appointment.provider.first_name} with patient #{
+            appointment.user.first_name
+          } in #{format_date(appointment.date)}"
+      }
+      |> Notification.create()
+
+  defp format_date(date) do
+    "#{date.day}/#{date.month}/#{date.year} time: #{date.hour}:#{date.minute}"
   end
 
   defp book_time(date) do

@@ -41,6 +41,14 @@ defmodule DoctorScheduleWeb.Api.UserControllerTest do
 
       assert json_response(conn, 200) |> Enum.count() == 1
     end
+
+    test "lists all providers", %{conn: conn} do
+      conn =
+        conn
+        |> get(Routes.api_user_path(conn, :index), %{only_providers: 1})
+
+      assert json_response(conn, 200) |> Enum.count() == 0
+    end
   end
 
   describe "create user" do

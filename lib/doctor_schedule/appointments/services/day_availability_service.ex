@@ -1,11 +1,25 @@
 defmodule DoctorSchedule.Appointments.Services.DayAvailabilityService do
   alias DoctorSchedule.Appointments.Repositories.ProviderRepository
+  alias DoctorSchedule.Shared.Cache.Ets.Implementations.ScheduleCache
 
   def execute(provider_id, date) do
-    appointments = ProviderRepository.all_day_fom_provider(provider_id, date)
+    cache_key = "provider-schedules:#{provider_id}:#{date}"
 
-    8..19
-    |> Enum.map(&%{hour: &1, available: is_available?(&1, appointments, date)})
+    ScheduleCache.get(cache_key)
+    |> case do
+      {:ok, day_availability} ->
+        day_availability
+
+      {:not_found, _} ->
+        appointments = ProviderRepository.all_day_fom_provider(provider_id, date)
+
+        schedule =
+          8..19
+          |> Enum.map(&%{hour: &1, available: is_available?(&1, appointments, date)})
+
+        ScheduleCache.save(cache_key, schedule)
+        schedule
+    end
   end
 
   defp is_available?(hour, appointments, date) do

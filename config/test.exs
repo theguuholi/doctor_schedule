@@ -22,3 +22,9 @@ config :doctor_schedule, DoctorSchedule.Shared.MailProvider.Mailer, adapter: Bam
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :doctor_schedule, :mongo_db,
+  url: "mongodb://localhost:27017/doctor_schedule",
+  pool_size: 10
+
+config :doctor_schedule, :redis_config, url: "redis://localhost:6379"
