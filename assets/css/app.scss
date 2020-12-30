@@ -3,6 +3,7 @@ $color2: #ff747d;
 $color3: #fdd5b0;
 $color4: #32594f;
 
+$color-white: #fff;
 $forms-input-bg-color: #f0f0f0;
 $forms-input-ph-color: #aaa;
 
@@ -18,7 +19,12 @@ input {
 }
 
 @import "session/forms-container";
+@import "components/btn";
+@import "components/container";
+
+
 @import "../node_modules/nprogress/nprogress.css";
+
 
 /* LiveView specific classes for your customizations */
 .invalid-feedback {

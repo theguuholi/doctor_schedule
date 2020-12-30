@@ -13,7 +13,7 @@
         <p>Basta clicar no botao abaixo</p>
         <button class="btn transparent" id="sign-up-btn">Cadastrar</button>
       </div>
-      <img src="<#%= Routes.static_path(@conn, "/images/login.svg") %>" alt="Imagem de Medicina">
+      <img src="<%= Routes.static_path(@conn, "/images/login.svg") %>" alt="Imagem de Medicina">
 
     </div>
 
@@ -24,7 +24,7 @@
         <p>Basta clicar no botao abaixo</p>
         <button class="btn transparent" id="sign-in-btn">Logar</button>
       </div>
-      <img src="<#%= Routes.static_path(@conn, "/images/registry.svg") %>" alt="Imagem de Medicina">
+      <img src="<%= Routes.static_path(@conn, "/images/registry.svg") %>" alt="Imagem de Medicina">
     </div>
   </div>
 </div>
