@@ -1,0 +1,127 @@
+@media(max-width: 870px) {
+  .container {
+    min-height: 800px;
+    height: 100vh;
+
+    &:before {
+      width: 1500px;
+      height: 1500px;
+      left: 30%;
+      bottom: 68%;
+      transform: translateX(-50%);
+      right: initial;
+      top: initial;
+      transition: 2s ease-in-out;
+    }
+
+    .signin-signup {
+      width: 100%;
+      top: 95%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      transition: 1s 0.8s ease-in-out;
+    }
+
+    .panels-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 2fr 1fr;
+
+
+      .panel {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 2.5rem 8%;
+
+        .content {
+          padding-right: 15%;
+          transition: 0.9s 0.8s ease-in-out;
+
+          h3 {
+            font-size: 1.2rem;
+          }
+
+          p {
+            font-size: 0.7rem;
+            padding-right: 0.5rem 0;
+          }
+
+          .btn.transparent {
+            width: 110px;
+            height: 35px;
+            font-size: 0.7rem;
+          }
+        }
+
+        &.left-panel {
+          grid-row: 1 / 2;
+        }
+
+        &.right-panel {
+          grid-row: 4 / 4;
+        }
+      }
+
+      .img-panel {
+        width: 200px;
+        transition: 0.9s 0.6s ease-in-out;
+      }
+
+      .right-panel .content,
+      .right-panel .img-panel{
+        transform: translateY(300px);
+      }
+    }
+
+    &.sign-up-mode{
+      &:before{
+        transform: translate(-50%, 100%);
+        bottom: 32%;
+        right: initial;
+      }
+
+      .left-panel .img-panel,
+      .left-panel .content{
+        transform: translateY(-300px);
+      }
+
+      .right-panel .content,
+      .right-panel .img-panel{
+        transform: translateY(0px);
+      }
+
+      .signin-signup{
+        top: 5%;
+        transform: translate(-50%, 0);
+        left: 50%;
+      }
+    }
+  }
+}
+
+
+@media(max-width: 570px){
+  form{
+    padding: 0 1.5rem;
+  }
+
+  .img-panel{
+    display: none;
+  }
+
+  .panel .content{
+    padding: 0.5rem 1rem;
+  }
+
+  .container{
+    &:before{
+      bottom: 72%;
+      left: 50%;
+    }
+
+    &.sign-up-mode:before{
+      bottom: 28%;
+      left: 50%;
+    }
+  }
+}

@@ -40,7 +40,6 @@
   })
 
   sign_in_btn.addEventListener("click", () => {
-    alert("signin")
-    container.classList.add("sign-in-mode")
+    container.classList.remove("sign-up-mode")
   })
 </script>
