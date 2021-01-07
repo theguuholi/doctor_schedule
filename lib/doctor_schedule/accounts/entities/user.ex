@@ -49,6 +49,15 @@ defmodule DoctorSchedule.Accounts.Entities.User do
     |> hash_password()
   end
 
+  def changeset_login(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:email, :password])
+    |> validate_required([
+      :email,
+      :password
+    ])
+  end
+
   defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Argon2.add_hash(password))
   end

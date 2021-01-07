@@ -1,15 +1,17 @@
-<form action="" id="sign-in-form">
-  <h2 class="title">Faca seu login</h2>
-  <div class="input-field">
-    <i class="fas fa-user"></i>
-    <input type="text" placeholder="E-mail">
-  </div>
+<%= form_for @changeset, @action, [id: "sign-in-form"], fn f -> %>
+<h2 class="title">Faca seu login</h2>
+<div class="input-field">
+  <i class="fas fa-user"></i>
+  <%= email_input f, :email, placeholder: "E-mail" %>
+  <%= error_tag f, :email %>
+</div>
 
-  <div class="input-field">
-    <i class="fas fa-lock"></i>
-    <input type="password" placeholder="Senha">
-  </div>
+<div class="input-field">
+  <i class="fas fa-lock"></i>
+  <%= password_input f, :password, placeholder: "Senha" %>
+  <%= error_tag f, :password %>
+</div>
 
-  <input type="submit" value="Entrar" class="btn solid">
-  <p>Esqueci minha Senha</p>
-</form>
+<%= submit "Entrar", class: "btn solid"  %>
+<p>Esqueci minha Senha</p>
+<% end %>
