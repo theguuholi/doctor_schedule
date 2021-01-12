@@ -11,7 +11,8 @@ defmodule DoctorScheduleWeb.SessionController do
     render(conn, "session.html",
       changeset: changeset,
       changeset_insert: changeset_insert,
-      action: Routes.session_path(conn, :login_create)
+      action: Routes.session_path(conn, :login_create),
+      action_insert: Routes.session_path(conn, :create_account)
     )
   end
 
@@ -51,7 +52,7 @@ defmodule DoctorScheduleWeb.SessionController do
         |> put_flash(:error, "Usuario e/ou senha invalido!")
         |> render("session.html",
           changeset_insert: changeset,
-          action: Routes.session_path(conn, :session)
+          action_insert: Routes.session_path(conn, :session)
         )
     end
   end

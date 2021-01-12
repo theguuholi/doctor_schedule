@@ -2,7 +2,7 @@
   <div class="forms-container">
     <div class="signin-signup">
       <%= render DoctorScheduleWeb.SessionView, "login.html", assigns %>
-      <%= render DoctorScheduleWeb.SessionView, "signup.html" %>
+      <%= render DoctorScheduleWeb.SessionView, "signup.html", assigns %>
     </div>
   </div>
 

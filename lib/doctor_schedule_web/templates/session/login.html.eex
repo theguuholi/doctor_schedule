@@ -1,7 +1,7 @@
 <%= form_for @changeset, @action, [id: "sign-in-form"], fn f -> %>
 <h2 class="title">Faca seu login</h2>
 <div class="input-field">
-  <i class="fas fa-user"></i>
+  <i class="fas fa-envelope"></i>
   <%= email_input f, :email, placeholder: "E-mail" %>
   <%= error_tag f, :email %>
 </div>

@@ -1,25 +1,36 @@
-<form action="" id="sign-up-form">
-  <h2 class="title">Faca seu Cadastro</h2>
-  <div class="input-field">
-    <i class="fas fa-user"></i>
-    <input type="text" placeholder="Nome">
-  </div>
-  <div class="input-field">
-    <i class="fas fa-user"></i>
-    <input type="text" placeholder="Sobenome">
-  </div>
-  <div class="input-field">
-    <i class="fas fa-envelope"></i>
-    <input type="email" placeholder="E-mail">
-  </div>
-  <div class="input-field">
-    <i class="fas fa-lock"></i>
-    <input type="password" placeholder="Senha">
-  </div>
-  <div class="input-field">
-    <i class="fas fa-lock"></i>
-    <input type="password" placeholder="Confirmar Senha">
-  </div>
+<%= form_for @changeset_insert, @action_insert, [id: "sign-up-form"], fn f -> %>
+<h2 class="title">Faca seu Cadastro</h2>
+<div class="input-field">
+  <i class="fas fa-user"></i>
+  <%= text_input f, :first_name, placeholder: "Nome" %>
+  <%= error_tag f, :first_name %>
+</div>
 
-  <input type="submit" value="Cadastrar" class="btn solid">
-</form>
+<div class="input-field">
+  <i class="fas fa-user"></i>
+  <%= text_input f, :last_name, placeholder: "Sobrenome" %>
+  <%= error_tag f, :last_name %>
+</div>
+
+<div class="input-field">
+  <i class="fas fa-envelope"></i>
+  <%= email_input f, :email, placeholder: "E-mail" %>
+  <%= error_tag f, :email %>
+</div>
+
+<div class="input-field">
+  <i class="fas fa-lock"></i>
+  <%= password_input f, :password, placeholder: "Senha" %>
+  <%= error_tag f, :password %>
+</div>
+
+<div class="input-field">
+  <i class="fas fa-lock"></i>
+  <%= password_input f, :password_confirmation, placeholder: "Confirmar Senha" %>
+  <%= error_tag f, :password_confirmation %>
+</div>
+
+
+<%= submit "Cadastrar", class: "btn solid"  %>
+
+<% end %>
