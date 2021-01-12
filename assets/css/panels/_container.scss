@@ -13,14 +13,14 @@
     align-items: flex-end;
     justify-content: space-around;
     text-align: center;
-    z-index: 6;
+    z-index: 7;
 
     &.left-panel{
       pointer-events: all;
       padding: 3rem 17% 2rem 12%;
     }
     &.right-panel{
-      pointer-events: all;
+      pointer-events: none;
       padding: 3rem 12% 2rem 17%;
     }
 

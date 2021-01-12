@@ -23,6 +23,8 @@ defmodule DoctorScheduleWeb.Router do
 
     live "/", PageLive, :index
     get "/session", SessionController, :session
+    post "/signin", SessionController, :login_create
+    post "/signup", SessionController, :create_account
   end
 
   # Other scopes may use custom stacks.

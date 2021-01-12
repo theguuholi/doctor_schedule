@@ -23,7 +23,7 @@ defmodule DoctorSchedule.Accounts.Entities.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :first_name, :last_name, :role, :password, :password_confirmation])
     |> validate_required(
