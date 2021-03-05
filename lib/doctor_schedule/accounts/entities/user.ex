@@ -49,6 +49,15 @@ defmodule DoctorSchedule.Accounts.Entities.User do
     |> hash_password()
   end
 
+  def changeset_password_forgot(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:email])
+    |> validate_format(:email, ~r/@/, message: "has invalid format please type a valid e-mail")
+    |> validate_required([
+      :email
+    ])
+  end
+
   def changeset_login(user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :password])
