@@ -7,13 +7,7 @@ defmodule DoctorScheduleWeb.SessionController do
   def session(conn, _params) do
     changeset = User.changeset_login(%User{})
     changeset_insert = User.changeset(%User{})
-
-    render(conn, "session.html",
-      changeset: changeset,
-      changeset_insert: changeset_insert,
-      action: Routes.session_path(conn, :login_create),
-      action_insert: Routes.session_path(conn, :create_account)
-    )
+    session_render(conn, changeset, changeset_insert)
   end
 
   def login_create(conn, %{"user" => user_params}) do
@@ -28,13 +22,11 @@ defmodule DoctorScheduleWeb.SessionController do
       {:error, :unauthorized} ->
         changeset = User.changeset_login(%User{}, user_params)
         changeset = %{changeset | action: :login}
+        changeset_insert = User.changeset(%User{})
 
         conn
         |> put_flash(:error, "Usuario e/ou senha invalido!")
-        |> render("session.html",
-          changeset: changeset,
-          action: Routes.session_path(conn, :login_create)
-        )
+        |> session_render(changeset, changeset_insert)
     end
   end
 
@@ -47,13 +39,22 @@ defmodule DoctorScheduleWeb.SessionController do
         |> put_flash(:info, "Cadastrado com Sucesso! ")
         |> redirect(to: Routes.session_path(conn, :session))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Ecto.Changeset{} = changeset_insert} ->
+        changeset = User.changeset_login(%User{})
+
         conn
-        |> put_flash(:error, "Usuario e/ou senha invalido!")
-        |> render("session.html",
-          changeset_insert: changeset,
-          action_insert: Routes.session_path(conn, :session)
-        )
+        |> put_flash(:error, "Erro ao cadastrar o usuario!")
+        |> session_render(changeset, changeset_insert, true)
     end
+  end
+
+  defp session_render(conn, changeset, changeset_insert, sign_up \\ false) do
+    render(conn, "session.html",
+      changeset: changeset,
+      changeset_insert: changeset_insert,
+      action: Routes.session_path(conn, :login_create),
+      action_insert: Routes.session_path(conn, :create_account),
+      sign_up: sign_up
+    )
   end
 end

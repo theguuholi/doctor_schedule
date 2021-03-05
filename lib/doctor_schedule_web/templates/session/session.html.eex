@@ -31,15 +31,23 @@
 
 
 <script>
-  const sign_up_btn = document.querySelector("#sign-up-btn");
-  const sign_in_btn = document.querySelector("#sign-in-btn");
-  const container = document.querySelector(".container");
+  document.addEventListener("DOMContentLoaded", () => {
+    const sign_up_btn = document.querySelector("#sign-up-btn");
+    const sign_in_btn = document.querySelector("#sign-in-btn");
+    const container = document.querySelector(".container");
+    const signup = <%= @sign_up %>
+    console.log(signup)
+      if (signup) {
 
-  sign_up_btn.addEventListener("click", () => {
-    container.classList.add("sign-up-mode")
-  })
+        container.classList.add("sign-up-mode")
+      }
 
-  sign_in_btn.addEventListener("click", () => {
-    container.classList.remove("sign-up-mode")
-  })
+    sign_up_btn.addEventListener("click", () => {
+      container.classList.add("sign-up-mode")
+    })
+
+    sign_in_btn.addEventListener("click", () => {
+      container.classList.remove("sign-up-mode")
+    })
+  });
 </script>
