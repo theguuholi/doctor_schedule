@@ -13,6 +13,14 @@ $forms-input-ph-color: #aaa;
   box-sizing: border-box;
 }
 
+
+a{
+  text-decoration: none;
+  &.btn{
+    padding: 10px;
+  }
+}
+
 body,
 input {
   font-family: 'Poppins', sans-serif;

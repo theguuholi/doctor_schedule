@@ -18,9 +18,10 @@
   <div class="panels-container">
     <div class="panel left-panel">
       <div class="content">
-        <h3>Nao tem conta?</h3>
-        <p>Basta clicar no botao abaixo</p>
-        <button class="btn transparent" id="sign-up-btn">Cadastrar</button>
+        <%= link to: Routes.session_path(@conn, :session), id: "sign-up-btn", class: "btn transparent" do %>
+          Voltar ao Login
+          <i class="fa fa-sign-in"></i>
+        <% end %>
       </div>
       <img src="<%= Routes.static_path(@conn, "/images/login.svg") %>" alt="Imagem de Medicina" class="img-panel">
     </div>

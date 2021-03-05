@@ -26,6 +26,7 @@ defmodule DoctorScheduleWeb.Router do
     post "/signin", SessionController, :login_create
     post "/signup", SessionController, :create_account
     get "/forgot-password", ForgotPasswordController, :forgot_password
+    post "/forgot-password", ForgotPasswordController, :forgot_password_create
   end
 
   # Other scopes may use custom stacks.
