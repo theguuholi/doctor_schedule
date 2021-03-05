@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="forms-container">
+    <div class="signin-signup">
+        aqui vem formularios
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h3>Nao tem conta?</h3>
+        <p>Basta clicar no botao abaixo</p>
+        <button class="btn transparent" id="sign-up-btn">Cadastrar</button>
+      </div>
+      <img src="<%= Routes.static_path(@conn, "/images/login.svg") %>" alt="Imagem de Medicina" class="img-panel">
+    </div>
+</div>
