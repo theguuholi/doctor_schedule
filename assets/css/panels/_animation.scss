@@ -1,0 +1,38 @@
+
+.container{
+  &.sign-up-mode{
+    &:before{
+      transform: translate(100%, -50%);
+      right: 52%;
+    }
+
+    .left-panel .img-panel, .left-panel .content{
+      transform: translateX(-800px);
+    }
+
+    .signin-signup{
+      left: 25%;
+    }
+
+    form#sign-up-form{
+      opacity: 1;
+      z-index: 2;
+    }
+
+    form#sign-in-form{
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .right-panel .img-panel, .right-panel .content{
+      transform: translateX(0px)
+    }
+
+    .left-panel{
+      pointer-events: none;
+    }
+    .right-panel{
+      pointer-events: all;
+    }
+  }
+}

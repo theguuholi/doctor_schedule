@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+  width: 100%;
+  background-color: $color-white;
+  min-height: 100vh;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    position: absolute;
+    height: 2000px;
+    width: 2000px;
+    top: -10%;
+    right: 48%;
+    transform: translateY(-50%);
+    background-image: linear-gradient(-45deg, $color4, 0%, lighten($color4, 5) 100%);
+    transition: 1.8s ease-in-out;
+    border-radius: 50%;
+    z-index: 6;
+  }
+
+}

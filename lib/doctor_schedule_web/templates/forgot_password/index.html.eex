@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="forms-container">
+    <div class="signin-signup">
+      <%= form_for @changeset, @action, [id: "sign-in-form"], fn f -> %>
+      <h2 class="title">Recuperar senha</h2>
+      <div class="input-field">
+        <i class="fas fa-envelope"></i>
+        <%= email_input f, :email, placeholder: "E-mail" %>
+        <%= error_tag f, :email %>
+      </div>
+
+      <%= submit "Recuperar", class: "btn solid"  %>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <%= link to: Routes.session_path(@conn, :session), id: "sign-up-btn", class: "btn transparent" do %>
+          Voltar ao Login
+          <i class="fa fa-sign-in"></i>
+        <% end %>
+      </div>
+      <img src="<%= Routes.static_path(@conn, "/images/login.svg") %>" alt="Imagem de Medicina" class="img-panel">
+    </div>
+  </div>

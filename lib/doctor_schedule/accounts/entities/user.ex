@@ -23,7 +23,7 @@ defmodule DoctorSchedule.Accounts.Entities.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :first_name, :last_name, :role, :password, :password_confirmation])
     |> validate_required(
@@ -47,6 +47,24 @@ defmodule DoctorSchedule.Accounts.Entities.User do
     )
     |> validate_confirmation(:password)
     |> hash_password()
+  end
+
+  def changeset_password_forgot(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:email])
+    |> validate_format(:email, ~r/@/, message: "has invalid format please type a valid e-mail")
+    |> validate_required([
+      :email
+    ])
+  end
+
+  def changeset_login(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:email, :password])
+    |> validate_required([
+      :email,
+      :password
+    ])
   end
 
   defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do

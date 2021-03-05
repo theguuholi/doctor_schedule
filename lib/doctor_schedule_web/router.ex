@@ -22,6 +22,11 @@ defmodule DoctorScheduleWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    get "/session", SessionController, :session
+    post "/signin", SessionController, :login_create
+    post "/signup", SessionController, :create_account
+    get "/forgot-password", ForgotPasswordController, :forgot_password
+    post "/forgot-password", ForgotPasswordController, :forgot_password_create
   end
 
   # Other scopes may use custom stacks.

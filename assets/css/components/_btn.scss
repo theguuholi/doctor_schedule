@@ -1,0 +1,28 @@
+.btn {
+  width: 150px;
+  background-color: $color4;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 49px;
+  color: $color-white;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: lighten($color4, 10);
+  }
+
+  &.transparent {
+    margin: 0;
+    background: none;
+    border: 2px solid $color-white;
+    width: 130px;
+    height: 41px;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+}

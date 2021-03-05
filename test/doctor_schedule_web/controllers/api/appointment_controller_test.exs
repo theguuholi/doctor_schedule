@@ -45,7 +45,7 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
 
       conn = get(conn, Routes.api_appointment_path(conn, :show, id))
 
-      assert id = json_response(conn, 200)["id"]
+      assert id == json_response(conn, 200)["id"]
     end
   end
 
