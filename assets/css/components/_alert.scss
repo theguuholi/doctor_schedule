@@ -1,0 +1,42 @@
+
+/* Alerts and form errors */
+.alert {
+  z-index: 999;
+  border-radius: 10px;
+  position: absolute;
+  width: 360px;
+  right: 0;
+  top: 10px;
+  padding: 30px;
+  overflow: hidden;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  animation: hide 2s 2s forwards
+}
+
+@keyframes hide {
+  from { opacity: 1 }
+  to   { opacity: 0 }
+}
+
+
+.alert-info {
+  background: #e6fffa;
+  color: #2e656a;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+}
+
+.alert-danger {
+  background: #fddede;
+  color: #c53030;
+}
+
+.alert p {
+  margin-bottom: 0;
+}
+
+.alert:empty {
+  display: none;
+}
