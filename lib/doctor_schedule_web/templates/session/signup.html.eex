@@ -1,31 +1,34 @@
 <%= form_for @changeset_insert, @action_insert, [id: "sign-up-form"], fn f -> %>
 <h2 class="title">Faca seu Cadastro</h2>
-<div class="input-field">
-  <i class="fas fa-user"></i>
+
+<div class="input-field <%= if f.params != %{} && f.source.errors[:first_name], do: "error" %>">
+  <i class="fas fa-user <%= f.params != %{} && f.source.errors[:first_name] && "blur" || "" %>"></i>
   <%= text_input f, :first_name, placeholder: "Nome" %>
   <%= error_tag f, :first_name %>
 </div>
 
-<div class="input-field">
-  <i class="fas fa-user"></i>
+<div class="input-field <%= if f.params != %{} && f.source.errors[:last_name], do: "error" %>">
+  <i class="fas fa-user <%= f.params != %{} && f.source.errors[:last_name] && "blur" || "" %>"></i>
   <%= text_input f, :last_name, placeholder: "Sobrenome" %>
   <%= error_tag f, :last_name %>
 </div>
 
-<div class="input-field">
-  <i class="fas fa-envelope"></i>
+
+<div class="input-field <%= if f.params != %{} && f.source.errors[:email], do: "error" %>">
+  <i class="fas fa-envelope <%= f.params != %{} && f.source.errors[:email] && "blur" || "" %>"></i>
   <%= email_input f, :email, placeholder: "E-mail" %>
   <%= error_tag f, :email %>
 </div>
 
-<div class="input-field">
-  <i class="fas fa-lock"></i>
+<div class="input-field <%= if f.params != %{} && f.source.errors[:password], do: "error" %>">
+  <i class="fas fa-lock <%= f.params != %{} && f.source.errors[:password] && "blur" || "" %>"></i>
   <%= password_input f, :password, placeholder: "Senha" %>
   <%= error_tag f, :password %>
 </div>
 
-<div class="input-field">
-  <i class="fas fa-lock"></i>
+
+<div class="input-field <%= if f.params != %{} && f.source.errors[:password_confirmation], do: "error" %>">
+  <i class="fas fa-lock <%= f.params != %{} && f.source.errors[:password_confirmation] && "blur" || "" %>"></i>
   <%= password_input f, :password_confirmation, placeholder: "Confirmar Senha" %>
   <%= error_tag f, :password_confirmation %>
 </div>
