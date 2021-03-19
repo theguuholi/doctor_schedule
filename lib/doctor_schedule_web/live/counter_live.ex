@@ -1,48 +1,47 @@
 defmodule DoctorScheduleWeb.CounterLive do
   use DoctorScheduleWeb, :live_view
+  alias DoctorSchedule.Counters
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, counters: new())}
+    {:ok, socket |> new()}
   end
 
-  defp new(), do: %{}
+  defp new(socket), do: assign(socket, counters: Counters.new())
+
+  defp add(socket) do
+    assign(socket, counters: Counters.add_counter(socket.assigns.counters))
+  end
+
+  defp zer(socket, name) do
+    assign(socket, counters: Counters.zer(socket.assigns.counters, name))
+  end
+
+  defp dec(socket, name) do
+    assign(socket, counters: Counters.dec(socket.assigns.counters, name))
+  end
+
+  defp inc(socket, name) do
+    assign(socket, counters: Counters.inc(socket.assigns.counters, name))
+  end
 
   @impl true
   def handle_event("add", _params, socket) do
-    counters = socket.assigns.counters
-
-    counter_name =
-      counters
-      |> Map.keys()
-      |> Enum.map(&String.to_integer/1)
-      |> Enum.max()
-      |> Kernel.+(1)
-      |> to_string
-      |> IO.inspect()
-
-    counters = Map.put(counters, counter_name, 0)
-    {:noreply, assign(socket, counters: counters)}
-  rescue
-    _e ->
-      counters = Map.put(socket.assigns.counters, "1", 0)
-      {:noreply, assign(socket, counters: counters)}
+    {:noreply, add(socket)}
   end
 
   @impl true
   def handle_event("inc", %{"counter" => name}, socket) do
-    counters = socket.assigns.counters
-    socket = assign(socket, counters: Map.put(counters, name, counters[name] + 1))
-    {:noreply, socket}
+    {:noreply, inc(socket, name)}
   end
 
   @impl true
-  def handle_event("dec", _params, socket) do
-    {:noreply, socket |> assign(count: socket.assigns.count - 1)}
+  def handle_event("dec", %{"counter" => name}, socket) do
+    {:noreply, dec(socket, name)}
   end
 
   @impl true
-  def handle_event("zer", _params, socket) do
-    {:noreply, socket |> assign(count: 0)}
+  def handle_event("zer", %{"counter" => name}, socket) do
+    {:noreply, zer(socket, name)}
   end
 end
