@@ -7,7 +7,6 @@ defmodule DoctorSchedule.Application do
   alias DoctorSchedule.Shared.Cache.Ets.CacheEts
 
   def start(_type, _args) do
-    import Supervisor.Spec
     url = Application.get_env(:doctor_schedule, :mongo_db)[:url]
     pool_size = Application.get_env(:doctor_schedule, :mongo_db)[:pool_size]
 
@@ -22,8 +21,8 @@ defmodule DoctorSchedule.Application do
       {Phoenix.PubSub, name: DoctorSchedule.PubSub},
       # Start the Endpoint (http/https)
       DoctorScheduleWeb.Endpoint,
-      worker(Mongo, [[name: :mongo, url: url, pool_size: pool_size]]),
-      worker(Redix, [redis_url, [name: :redis_server]]),
+      # {Mongo, [name: :mongo, url: url, pool_size: pool_size]},
+      # {Redix, {redis_url, [name: :redis_server]}},
       build_cache(:providers)
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
       # {DoctorSchedule.Worker, arg}
