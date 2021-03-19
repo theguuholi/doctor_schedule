@@ -21,7 +21,7 @@ defmodule DoctorScheduleWeb.Router do
   scope "/", DoctorScheduleWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", CounterLive, :index
     get "/session", SessionController, :session
     post "/signin", SessionController, :login_create
     post "/signup", SessionController, :create_account
