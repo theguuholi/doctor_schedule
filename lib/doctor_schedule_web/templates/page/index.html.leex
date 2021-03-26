@@ -1,42 +1,8 @@
 <div class="doctor-dashboard">
-  <header>
-    <div class="header-content">
-      <h1>DoctorSchedule</h1>
-
-      <div class="doctor-info">
-        <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>" alt="Dr. Eneias" />
-        <div>
-          <span>Welcome, mr</span>
-          <strong><a href="#">Eneias Silva</a></strong>
-        </div>
-      </div>
-
-      <a href="#">
-        <i class="fa fa-power-off"></i>
-      </a>
-    </div>
-  </header>
-
+  <%= live_component @socket, DoctorScheduleWeb.HeaderComponent, assigns %>
   <main>
     <div class="schedule">
-      <h1>Consultancies scheduleed</h1>
-      <p>
-        <span>Today | </span>
-        <span>Day 30 | </span>
-        <span>Tuesday</span>
-      </p>
-      <div class="next-apointment">
-        <strong>Next Patient</strong>
-        <div>
-          <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>" alt="Dr. Eneias" />
-          <strong>Joao da Silva</strong>
-          <span>
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            08:00
-          </span>
-        </div>
-      </div>
-
+      <%= live_component @socket, DoctorScheduleWeb.InfoComponent, assigns %>
 
       <section class="patients">
         <strong>Morning</strong>
@@ -45,43 +11,10 @@
 
       <section class="patients">
         <strong>Afternoon</strong>
-
-        <div class="patient">
-          <span>
-            <i class="fa fa-clock-o"></i>
-            16:00
-          </span>
-
-          <div class="patient-info">
-            <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
-              alt="Dr. Eneias" />
-            <strong>Jose Da Silva</strong>
-          </div>
-        </div>
-        <div class="patient">
-          <span>
-            <i class="fa fa-clock-o"></i>
-            16:00
-          </span>
-
-          <div class="patient-info">
-            <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
-              alt="Dr. Eneias" />
-            <strong>Jose Da Silva</strong>
-          </div>
-        </div>
-        <div class="patient">
-          <span>
-            <i class="fa fa-clock-o"></i>
-            16:00
-          </span>
-
-          <div class="patient-info">
-            <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
-              alt="Dr. Eneias" />
-            <strong>Jose Da Silva</strong>
-          </div>
-        </div>
+        <%= live_component @socket, DoctorScheduleWeb.PatientComponent, assigns %>
+        <%= live_component @socket, DoctorScheduleWeb.PatientComponent, assigns %>
+        <%= live_component @socket, DoctorScheduleWeb.PatientComponent, assigns %>
+        <%= live_component @socket, DoctorScheduleWeb.PatientComponent, assigns %>
       </section>
     </div>
 
