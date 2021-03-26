@@ -1,13 +1,17 @@
-defmodule DoctorScheduleWeb.CounterLive do
+defmodule DoctorScheduleWeb.PageLive do
   use DoctorScheduleWeb, :live_view
   alias DoctorSchedule.Counters
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> new()}
+    {:ok, socket |> new() |> insert_days}
   end
 
   defp new(socket), do: assign(socket, counters: Counters.new())
+
+  defp insert_days(socket) do
+    assign(socket, days: 1..31 |> Enum.map(& &1))
+  end
 
   defp add(socket) do
     assign(socket, counters: Counters.add_counter(socket.assigns.counters))

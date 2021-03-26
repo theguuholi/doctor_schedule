@@ -1,0 +1,133 @@
+<div class="doctor-dashboard">
+  <header>
+    <div class="header-content">
+      <h1>DoctorSchedule</h1>
+
+      <div class="doctor-info">
+        <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>" alt="Dr. Eneias" />
+        <div>
+          <span>Welcome, mr</span>
+          <strong><a href="#">Eneias Silva</a></strong>
+        </div>
+      </div>
+
+      <a href="#">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="schedule">
+      <h1>Consultancies scheduleed</h1>
+      <p>
+        <span>Today | </span>
+        <span>Day 30 | </span>
+        <span>Tuesday</span>
+      </p>
+      <div class="next-apointment">
+        <strong>Next Patient</strong>
+        <div>
+          <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>" alt="Dr. Eneias" />
+          <strong>Joao da Silva</strong>
+          <span>
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            08:00
+          </span>
+        </div>
+      </div>
+
+
+      <section class="patients">
+        <strong>Morning</strong>
+        <p>There is no patients in this period</p>
+      </section>
+
+      <section class="patients">
+        <strong>Afternoon</strong>
+
+        <div class="patient">
+          <span>
+            <i class="fa fa-clock-o"></i>
+            16:00
+          </span>
+
+          <div class="patient-info">
+            <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
+              alt="Dr. Eneias" />
+            <strong>Jose Da Silva</strong>
+          </div>
+        </div>
+        <div class="patient">
+          <span>
+            <i class="fa fa-clock-o"></i>
+            16:00
+          </span>
+
+          <div class="patient-info">
+            <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
+              alt="Dr. Eneias" />
+            <strong>Jose Da Silva</strong>
+          </div>
+        </div>
+        <div class="patient">
+          <span>
+            <i class="fa fa-clock-o"></i>
+            16:00
+          </span>
+
+          <div class="patient-info">
+            <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
+              alt="Dr. Eneias" />
+            <strong>Jose Da Silva</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside>
+      <div class="calendar">
+        <div class="month">
+          <ul>
+            <li class="prev">
+              <a href="#">
+                <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>August <span style="font-size:18px"> 2021 </span> </li>
+            <li class="next">
+              <a href="#">
+                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <ul class="weekdays">
+          <li>Mo</li>
+          <li>Tu</li>
+          <li>We</li>
+          <li>Th</li>
+          <li>Fr</li>
+          <li>Sa</li>
+          <li>Su</li>
+        </ul>
+
+
+        <ul class="days">
+          <%# <li class="normal-day">1</li>
+          <li class="active">2</li>
+          <li class="today">3</li>
+          <li class="unavailable">4</li>
+          <li class="fullday">5</li> %>
+          <%# <li><span class="active">10</span></li> %>
+          <%= for day <- @days do %>
+          <li><%= day %> </li>
+          <% end %>
+        </ul>
+      </div>
+    </aside>
+
+
+  </main>
+</div>

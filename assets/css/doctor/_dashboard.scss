@@ -1,0 +1,18 @@
+.doctor-dashboard {
+  @import "header";
+
+  main {
+    max-width: 1120px;
+    margin: 64px auto;
+    margin-top: -20px;
+    display: flex;
+
+    padding: 15px;
+    padding-top: 20px;
+    border-radius: 20px;
+    background-color: white;
+
+    @import "schedule";
+    @import "aside";
+  }
+}
