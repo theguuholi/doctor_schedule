@@ -1,10 +1,17 @@
 defmodule DoctorScheduleWeb.PageLive do
   use DoctorScheduleWeb, :live_view
   alias DoctorSchedule.Counters
+  alias DoctorScheduleWeb.PageView
+  alias Phoenix.View
 
   @impl true
   def mount(_params, _session, socket) do
     {:ok, socket |> new() |> insert_days}
+  end
+
+  @impl true
+  def render(assigns) do
+    View.render(PageView, "index.html", assigns)
   end
 
   defp new(socket), do: assign(socket, counters: Counters.new())

@@ -1,0 +1,40 @@
+ <div class="calendar">
+   <div class="month">
+     <ul>
+       <li class="prev">
+         <a href="#">
+           <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+         </a>
+       </li>
+       <li>August <span style="font-size:18px"> 2022 </span> </li>
+       <li class="next">
+         <a href="#">
+           <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+         </a>
+       </li>
+     </ul>
+   </div>
+
+   <ul class="weekdays">
+     <li>Mo</li>
+     <li>Tu</li>
+     <li>We</li>
+     <li>Th</li>
+     <li>Fr</li>
+     <li>Sa</li>
+     <li>Su</li>
+   </ul>
+
+
+   <ul class="days">
+     <%# <li class="normal-day">1</li>
+      <li class="active">2</li>
+      <li class="today">3</li>
+      <li class="unavailable">4</li>
+      <li class="fullday">5</li> %>
+     <%# <li><span class="active">10</span></li> %>
+     <%= for day <- @days do %>
+     <li><%= day %> </li>
+     <% end %>
+   </ul>
+ </div>
