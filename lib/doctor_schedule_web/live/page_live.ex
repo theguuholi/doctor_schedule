@@ -16,7 +16,22 @@ defmodule DoctorScheduleWeb.PageLive do
   end
 
   defp create_calendar(socket) do
-    calendar = Appointments.create_calendar(Timex.now())
-    assign(socket, calendar: calendar)
+    current_date = Timex.now()
+    calendar = Appointments.create_calendar(current_date)
+    assign(socket, calendar: calendar, current_date: current_date)
+  end
+
+  @impl true
+  def handle_event("previous-month", _, socket) do
+    current_date = Timex.shift(socket.assigns.current_date, months: -1)
+    calendar = Appointments.create_calendar(current_date)
+    {:noreply, assign(socket, calendar: calendar, current_date: current_date)}
+  end
+
+  @impl true
+  def handle_event("next-month", _, socket) do
+    current_date = Timex.shift(socket.assigns.current_date, months: 1)
+    calendar = Appointments.create_calendar(current_date)
+    {:noreply, assign(socket, calendar: calendar, current_date: current_date)}
   end
 end
