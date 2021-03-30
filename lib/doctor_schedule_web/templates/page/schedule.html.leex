@@ -27,14 +27,8 @@
 
 
    <ul class="days">
-     <%# <li class="normal-day">1</li>
-      <li class="active">2</li>
-      <li class="today">3</li>
-      <li class="unavailable">4</li>
-      <li class="fullday">5</li> %>
-     <%# <li><span class="active">10</span></li> %>
-     <%= for day <- @days do %>
-     <li><%= day %> </li>
+     <%= for date_info <- @days do %>
+     <li class="<%= date_info.type %> "><%= date_info.date.day %> </li>
      <% end %>
    </ul>
  </div>

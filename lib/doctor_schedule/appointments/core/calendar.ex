@@ -27,9 +27,42 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
   end
 
   defp build_calendar_days(params) do
-    {_current_date, first_week_day, end_week_day} = params
+    {current_date, first_week_day, end_week_day} = params
+    interval = Interval.new(from: first_week_day, until: end_week_day)
+    Enum.map(interval, &create_day(&1, current_date))
+  end
 
-    Interval.new(from: first_week_day, until: end_week_day)
-    |> Enum.map(& &1.day)
+  defp create_day(date, current_date) do
+    #   <li class="active">2</li>
+    #   <li class="fullday">5</li> %>
+    %{date: date, type: day_type(date, current_date)}
+  end
+
+  defp day_type(date, current_date) do
+    cond do
+      is_today?(date) -> "today"
+      is_weekend?(date) -> "unavailable"
+      is_other_month?(date, current_date) -> "unavailable"
+      is_past_month?(date, current_date) -> "unavailable"
+      true -> "normal-day"
+    end
+  end
+
+  defp is_today?(date) do
+    Map.take(date, [:year, :month, :day]) ==
+      Map.take(Timex.now(), [:year, :month, :day])
+  end
+
+  defp is_weekend?(date) do
+    week_day = Timex.weekday(date)
+    week_day == 6 || week_day == 7
+  end
+
+  defp is_other_month?(date, current_date) do
+    Map.take(date, [:year, :month]) != Map.take(current_date, [:year, :month])
+  end
+
+  defp is_past_month?(date, current_date) do
+    Timex.compare(date, current_date) == -1
   end
 end
