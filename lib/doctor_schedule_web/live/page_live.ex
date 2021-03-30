@@ -16,7 +16,7 @@ defmodule DoctorScheduleWeb.PageLive do
   end
 
   defp create_calendar(socket) do
-    days = Appointments.create_calendar(Timex.now())
-    assign(socket, days: days)
+    calendar = Appointments.create_calendar(Timex.now())
+    assign(socket, calendar: calendar)
   end
 end

@@ -6,6 +6,12 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
     |> get_beginning_of_week
     |> get_end_of_week
     |> build_calendar_days
+    |> build_day_name
+  end
+
+  defp build_day_name(calendar) do
+    days_of_week = [7, 1, 2, 3, 4, 5, 6] |> Enum.map(&Timex.day_shortname/1)
+    Map.put(calendar, :days_of_week, days_of_week)
   end
 
   defp get_beginning_of_week(current_date) do
@@ -29,7 +35,8 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
   defp build_calendar_days(params) do
     {current_date, first_week_day, end_week_day} = params
     interval = Interval.new(from: first_week_day, until: end_week_day)
-    Enum.map(interval, &create_day(&1, current_date))
+    dates = Enum.map(interval, &create_day(&1, current_date))
+    %{dates: dates}
   end
 
   defp create_day(date, current_date) do

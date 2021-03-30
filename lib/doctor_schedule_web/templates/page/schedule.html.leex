@@ -16,18 +16,13 @@
    </div>
 
    <ul class="weekdays">
-     <li>Su</li>
-     <li>Mo</li>
-     <li>Tu</li>
-     <li>We</li>
-     <li>Th</li>
-     <li>Fr</li>
-     <li>Sa</li>
+     <%= for day_of_week <- @calendar.days_of_week do %>
+     <li><%= day_of_week %> </li>
+     <% end %>
    </ul>
 
-
    <ul class="days">
-     <%= for date_info <- @days do %>
+     <%= for date_info <- @calendar.dates do %>
      <li class="<%= date_info.type %> "><%= date_info.date.day %> </li>
      <% end %>
    </ul>
