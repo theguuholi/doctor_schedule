@@ -1,12 +1,13 @@
 defmodule DoctorScheduleWeb.PageLive do
   use DoctorScheduleWeb, :live_view
-  alias DoctorSchedule.Counters
+  alias DoctorSchedule.Appointments
   alias DoctorScheduleWeb.PageView
+
   alias Phoenix.View
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> insert_days}
+    {:ok, socket |> create_calendar}
   end
 
   @impl true
@@ -14,7 +15,8 @@ defmodule DoctorScheduleWeb.PageLive do
     View.render(PageView, "index.html", assigns)
   end
 
-  defp insert_days(socket) do
-    assign(socket, days: 1..31 |> Enum.map(& &1))
+  defp create_calendar(socket) do
+    days = Appointments.create_calendar(Timex.now())
+    assign(socket, days: days)
   end
 end

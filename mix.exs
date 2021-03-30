@@ -82,7 +82,8 @@ defmodule DoctorSchedule.MixProject do
       {:mongodb, ">= 0.0.0"},
       {:poolboy, ">= 0.0.0"},
       {:redix, ">= 0.0.0"},
-      {:castore, ">= 0.0.0"}
+      {:castore, ">= 0.0.0"},
+      {:timex, "~> 3.5"}
     ]
   end
 
