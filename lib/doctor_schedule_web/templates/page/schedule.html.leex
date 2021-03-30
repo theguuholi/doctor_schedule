@@ -6,7 +6,7 @@
            <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
          </a>
        </li>
-       <li>August <span style="font-size:18px"> 2022 </span> </li>
+       <li> <%= @calendar.current_month %></li>
        <li class="next">
          <a href="#" phx-click="next-month">
            <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
@@ -22,7 +22,7 @@
    </ul>
 
    <ul class="days">
-     <%= for date_info <- @calendar.dates do %>
+     <%= for date_info <- @calendar.days do %>
      <li class="<%= date_info.type %> "><%= date_info.date.day %> </li>
      <% end %>
    </ul>
