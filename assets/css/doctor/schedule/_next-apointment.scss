@@ -1,0 +1,44 @@
+.next-apointment {
+  margin-top: 64px;
+
+  strong {
+    color: $color1;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  div {
+    background-color: $color3;
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    margin-top: 24px;
+    border-radius: 24px;
+    position: relative;
+    background: $color4;
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    strong {
+      margin-left: 24px;
+      color: white;
+    }
+
+    span {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      color: darken($color3, 10);
+
+      i {
+        color: darken($color3, 10);
+        margin-right: 8px;
+      }
+    }
+
+  }
+}

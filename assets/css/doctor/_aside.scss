@@ -1,0 +1,109 @@
+aside{
+  .calendar{
+    width: 380px;
+
+    .month{
+      padding: 10px 25px;
+      border-radius: 16px 16px 0 0;
+      width: 100%;
+      background: lighten($color4, 10);
+      text-align: center;
+
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          color: white;
+          font-size: 20px;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+
+          a {
+            text-decoration: none;
+            color: white;
+          }
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+
+      &.weekdays {
+        padding-top: 10px;
+        display: flex;
+        margin: 0;
+        background-color: darken(white, 5);
+
+        li {
+          display: inline-block;
+          width: 13.6%;
+          color: $color1;
+          text-align: center;
+        }
+      }
+
+      &.days {
+        padding: 10px 0;
+        background-color: darken(white, 5);
+        margin: 0;
+
+        li {
+          list-style-type: none;
+          display: inline-block;
+          border-radius: 10px;
+          width: 12.0%;
+          font-size: 16px;
+          text-align: center;
+          padding: 10px 5px 10px 5px;
+          margin-bottom: 7px;
+          margin-right: 4px;
+          font-size: 12px;
+          cursor: pointer;
+
+          &.normal-day {
+            background: $color4;
+            color: white;
+          }
+
+          &.active {
+            background: $color2;
+            color: white;
+
+            &:hover {
+              background: lighten($color2, 5);
+              color: white;
+            }
+          }
+
+          &.today {
+            background: darken($color3, 15);
+            color: white;
+            &:hover {
+              background: darken($color3, 10);
+              color: white;
+            }
+          }
+
+          &.unavailable {
+            pointer-events: none;
+          }
+
+          &.fullday {
+            background: darken($color3, 10);
+            cursor: pointer;
+          }
+
+          &:hover {
+            background: lighten($color4, 5);
+          }
+        }
+      }
+
+    }
+
+
+  }
+}

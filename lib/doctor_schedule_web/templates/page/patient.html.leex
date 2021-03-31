@@ -1,0 +1,12 @@
+  <div class="patient">
+    <span>
+      <i class="fa fa-clock-o"></i>
+      <%= @appointment.date.hour %>:00
+    </span>
+
+    <div class="patient-info">
+      <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>"
+        alt="<%= @appointment.user.first_name %>" />
+      <strong><%= @appointment.user.first_name %> <%= @appointment.user.last_name %></strong>
+    </div>
+  </div>

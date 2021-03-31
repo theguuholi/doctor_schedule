@@ -1,0 +1,21 @@
+<h1>Consultancies scheduleed</h1>
+<p>
+  <%= if @calendar.is_today do %>
+  <span>Today | </span>
+  <% end %>
+  <span>Day <%= @calendar.current_date.day %> | </span>
+  <span><%= @calendar.current_date |> Timex.weekday |> Timex.day_name %></span>
+</p>
+<%= if @calendar.next_one != nil do %>
+<div class="next-apointment">
+  <strong>Next Patient</strong>
+  <div>
+    <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>" alt="<%= @calendar.next_one.user.first_name %>" />
+    <strong><%= @calendar.next_one.user.first_name %> <%= @calendar.next_one.user.first_name %></strong>
+    <span>
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <%= @calendar.next_one.date.hour %>:00
+    </span>
+  </div>
+</div>
+<% end %>
