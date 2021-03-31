@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <a href="#">
-      <i class="fa fa-power-off"></i>
-    </a>
+    <%= link to: Routes.session_path(@socket, :logout) do %>
+    <i class="fa fa-power-off"></i>
+    <% end %>
   </div>
 </header>

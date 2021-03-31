@@ -58,4 +58,11 @@ defmodule DoctorScheduleWeb.SessionController do
       sign_up: sign_up
     )
   end
+
+  def logout(conn, _) do
+    conn
+    |> Guardian.Plug.sign_out()
+    |> configure_session(drop: true)
+    |> redirect(to: Routes.session_path(conn, :session))
+  end
 end

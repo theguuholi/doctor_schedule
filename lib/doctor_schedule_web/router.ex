@@ -21,6 +21,7 @@ defmodule DoctorScheduleWeb.Router do
   scope "/", DoctorScheduleWeb do
     pipe_through [:browser, :auth]
 
+    get "/logout", SessionController, :logout
     live "/", PageLive, :index
   end
 
