@@ -5,7 +5,9 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
             days: nil,
             current_month: nil,
             days_of_week: nil,
-            schedules: nil
+            schedules: nil,
+            next_one: nil,
+            is_today: false
 
   use Timex
   alias DoctorSchedule.Appointments.Core.Day
@@ -19,11 +21,37 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
     |> build_day_name
     |> build_current_month
     |> get_all_appointments_from_specific_day(current_user_id)
+    |> next_one
+    |> is_today?
   end
 
   defp get_all_appointments_from_specific_day(calendar, current_user_id) do
     schedules = Schedules.get_all_appointments(calendar.current_date, current_user_id)
     %__MODULE__{calendar | schedules: schedules}
+  end
+
+  defp is_today?(calendar) do
+    if Day.is_today?(calendar.current_date) do
+      %__MODULE__{calendar | is_today: true}
+    else
+      calendar
+    end
+  end
+
+  defp next_one(calendar) do
+    if Day.is_today?(calendar.current_date) do
+      schedules = calendar.schedules
+      appointments = schedules.morning_appointments ++ schedules.afternoon_apointments
+
+      date_is_greater_than_now? = fn d1 ->
+        NaiveDateTime.compare(d1, NaiveDateTime.utc_now())
+      end
+
+      next_one = Enum.find(appointments, &date_is_greater_than_now?.(&1.date))
+      %__MODULE__{calendar | next_one: next_one}
+    else
+      calendar
+    end
   end
 
   def calendar_event(current_date, current_user_id, :next_month) do

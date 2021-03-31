@@ -10,15 +10,21 @@ defmodule DoctorSchedule.Appointments.Core.Day do
   defp day_type(date, current_date) do
     cond do
       is_today?(date) -> "today"
+      current_date?(date, current_date) -> "active"
       is_weekend?(date) -> "unavailable"
       is_other_month?(date, current_date) -> "unavailable"
       true -> "normal-day"
     end
   end
 
-  defp is_today?(date) do
+  def is_today?(date) do
     Map.take(date, [:year, :month, :day]) ==
       Map.take(Timex.now(), [:year, :month, :day])
+  end
+
+  defp current_date?(date, current_date) do
+    Map.take(date, [:year, :month, :day]) ==
+      Map.take(current_date, [:year, :month, :day])
   end
 
   defp is_weekend?(date) do
