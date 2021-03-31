@@ -30,11 +30,14 @@ defmodule DoctorScheduleWeb.Api.AppointmentControllerTest do
     test "renders appointment when data is valid", %{conn: conn} do
       provider = UserFixture.create_provider()
 
-      now = NaiveDateTime.utc_now()
+      date =
+        Timex.now()
+        |> Timex.shift(days: 1)
+        |> Timex.to_naive_datetime()
 
       date =
-        %NaiveDateTime{now | day: now.day + 1, hour: 10}
-        |> NaiveDateTime.to_string()
+        %NaiveDateTime{date | hour: 17}
+        |> NaiveDateTime.to_iso8601()
 
       conn =
         post(conn, Routes.api_appointment_path(conn, :create),

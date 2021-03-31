@@ -17,11 +17,14 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointmentTest do
   end
 
   test "it should throw an error when doctor has the same id from user" do
-    date = NaiveDateTime.utc_now()
+    date =
+      Timex.now()
+      |> Timex.shift(days: 1)
+      |> Timex.to_naive_datetime()
 
     date =
-      %NaiveDateTime{date | day: date.day + 1}
-      |> NaiveDateTime.to_string()
+      %NaiveDateTime{date | hour: 17}
+      |> NaiveDateTime.to_iso8601()
 
     assert {:error, "You cannot create an appointment to yourself"} ==
              CreateAppointment.execute(%{
@@ -32,11 +35,14 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointmentTest do
   end
 
   test "it should throw an error when the booking is outside schedule" do
-    date = NaiveDateTime.utc_now()
+    date =
+      Timex.now()
+      |> Timex.shift(days: 1)
+      |> Timex.to_naive_datetime()
 
     date =
-      %NaiveDateTime{date | day: date.day + 1, hour: 20}
-      |> NaiveDateTime.to_string()
+      %NaiveDateTime{date | hour: 20}
+      |> NaiveDateTime.to_iso8601()
 
     assert {:error, "You can book between 8am until 19pm"} ==
              CreateAppointment.execute(%{
@@ -47,11 +53,14 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointmentTest do
   end
 
   test "it should throw an error when has a schedule booked" do
-    date = NaiveDateTime.utc_now()
+    date =
+      Timex.now()
+      |> Timex.shift(days: 1)
+      |> Timex.to_naive_datetime()
 
     date =
-      %NaiveDateTime{date | day: date.day + 1, hour: 17}
-      |> NaiveDateTime.to_string()
+      %NaiveDateTime{date | hour: 17}
+      |> NaiveDateTime.to_iso8601()
 
     with_mocks [
       {AppointmentsRepository, [],
@@ -69,11 +78,15 @@ defmodule DoctorSchedule.Appointments.Services.CreateAppointmentTest do
   test "it should create a book to a doctor" do
     user = UserFixture.create_user()
     provider = UserFixture.create_provider()
-    date = NaiveDateTime.utc_now()
 
     date =
-      %NaiveDateTime{date | day: date.day + 1, hour: 12}
-      |> NaiveDateTime.to_string()
+      Timex.now()
+      |> Timex.shift(days: 1)
+      |> Timex.to_naive_datetime()
+
+    date =
+      %NaiveDateTime{date | hour: 17}
+      |> NaiveDateTime.to_iso8601()
 
     {:ok, scheduled} =
       CreateAppointment.execute(%{
