@@ -21,8 +21,8 @@ defmodule DoctorSchedule.Application do
       {Phoenix.PubSub, name: DoctorSchedule.PubSub},
       # Start the Endpoint (http/https)
       DoctorScheduleWeb.Endpoint,
-      # {Mongo, [name: :mongo, url: url, pool_size: pool_size]},
-      # {Redix, {redis_url, [name: :redis_server]}},
+      {Mongo, [name: :mongo, url: url, pool_size: pool_size]},
+      {Redix, {redis_url, [name: :redis_server]}},
       build_cache(:providers)
       # Start a worker by calling: DoctorSchedule.Worker.start_link(arg)
       # {DoctorSchedule.Worker, arg}

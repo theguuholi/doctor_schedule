@@ -4,28 +4,36 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
             end_week_day: nil,
             days: nil,
             current_month: nil,
-            days_of_week: nil
+            days_of_week: nil,
+            schedules: nil
 
   use Timex
   alias DoctorSchedule.Appointments.Core.Day
+  alias DoctorSchedule.Appointments.Core.Schedules
   @week_start :sun
-  def new(current_date) do
+  def new(current_date, current_user_id) do
     %__MODULE__{current_date: current_date}
     |> get_beginning_of_week
     |> get_end_of_week
     |> build_calendar_days
     |> build_day_name
     |> build_current_month
+    |> get_all_appointments_from_specific_day(current_user_id)
   end
 
-  def calendar_event(current_date, :next_month) do
+  defp get_all_appointments_from_specific_day(calendar, current_user_id) do
+    schedules = Schedules.get_all_appointments(calendar.current_date, current_user_id)
+    %__MODULE__{calendar | schedules: schedules}
+  end
+
+  def calendar_event(current_date, current_user_id, :next_month) do
     current_date = Timex.shift(current_date, months: 1)
-    new(current_date)
+    new(current_date, current_user_id)
   end
 
-  def calendar_event(current_date, :previous_month) do
+  def calendar_event(current_date, current_user_id, :previous_month) do
     current_date = Timex.shift(current_date, months: -1)
-    new(current_date)
+    new(current_date, current_user_id)
   end
 
   defp build_current_month(calendar) do

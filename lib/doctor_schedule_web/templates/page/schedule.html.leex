@@ -23,7 +23,7 @@
 
    <ul class="days">
      <%= for date_info <- @calendar.days do %>
-     <li class="<%= date_info.type %> "><%= date_info.date.day %> </li>
+     <li class="<%= date_info.type %> " phx-click="pick-date" phx-value-date="<%= date_info.date %>"><%= date_info.date.day %> </li>
      <% end %>
    </ul>
  </div>

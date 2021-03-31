@@ -16,6 +16,7 @@ defmodule DoctorScheduleWeb.SessionController do
       {:ok, user, _token} ->
         conn
         |> Guardian.Plug.sign_in(user)
+        |> put_session(:current_user, user)
         |> put_flash(:info, "Logado com sucesso!")
         |> redirect(to: Routes.page_path(conn, :index))
 

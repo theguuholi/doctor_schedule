@@ -5,8 +5,8 @@
     <div class="doctor-info">
       <img src="<%= Routes.static_path(DoctorScheduleWeb.Endpoint, "/images/empty_user.png")%>" alt="Dr. Eneias" />
       <div>
-        <span>Welcome, mr</span>
-        <strong><a href="#">Eneias Silva</a></strong>
+        <span>Welcome</span>
+        <strong><a href="#"><%= @current_user.first_name %> <%= @current_user.last_name %></a></strong>
       </div>
     </div>
 
