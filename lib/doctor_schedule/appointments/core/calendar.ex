@@ -42,12 +42,7 @@ defmodule DoctorSchedule.Appointments.Core.Calendar do
     if Day.is_today?(calendar.current_date) do
       schedules = calendar.schedules
       appointments = schedules.morning_appointments ++ schedules.afternoon_apointments
-
-      date_is_greater_than_now? = fn d1 ->
-        NaiveDateTime.compare(d1, NaiveDateTime.utc_now())
-      end
-
-      next_one = Enum.find(appointments, &date_is_greater_than_now?.(&1.date))
+      next_one = Enum.find(appointments, &NaiveDateTime.compare(&1.date, NaiveDateTime.utc_now()))
       %__MODULE__{calendar | next_one: next_one}
     else
       calendar
