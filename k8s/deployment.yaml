@@ -19,7 +19,10 @@ spec:
             - containerPort: 4000
           env:
             - name: DATABASE_URL
-              value: postgres://tuevnzrq:TJGd0H4AaMmvRiJPXn5nYC4aO6H485DA@queenie.db.elephantsql.com:5432/tuevnzrq
+              valueFrom:
+                secretKeyRef:
+                  key: DATABASE_URL
+                  name: database-url
             - name: SECRET_KEY_BASE
               value: 6JwpGyrnuipQNo8MapaxL3Q9m48HxVuCao+QFEMGHl+I8Dp8rnkltBnLw7rdr56Z
             - name: SECRET_KEY_BASE
@@ -37,8 +40,14 @@ spec:
             - name: SMTP_PASSWORD
               value: b4c71ee2PW4bRkKzKm
             - name: MONGO_URL
-              value: mongodb+srv://guuholi:elxpro123@cluster0.mcd1g.mongodb.net/doctor_scheduler?retryWrites=true&w=majority
+              valueFrom:
+                secretKeyRef:
+                  key: MONGO_URL
+                  name: mongo-url
             - name: MONGO_POOL_SIZE
               value: "2"
             - name: REDIS_URL
-              value: redis://4330767d9a7946e19331ae0c5c789d87@us1-strong-dogfish-32638.upstash.io:32638
+              valueFrom:
+               secretKeyRef:
+                key: REDIS_URL
+                name: redis-url
