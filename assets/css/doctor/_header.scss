@@ -1,0 +1,71 @@
+  header {
+    padding: 52px 0;
+    background: $color4;
+
+    .header-content {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+
+      h1 {
+        color: lighten($color3, 10);
+      }
+
+      .doctor-info {
+        display: flex;
+        align-items: center;
+        margin-left: 80px;
+
+        img {
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+          margin-left: 16px;
+          line-height: 24px;
+
+          span {
+            color: lighten($color3, 15);
+          }
+
+          strong {
+            a {
+              text-decoration: none;
+              color: $color3;
+              transition: color 0.5s;
+
+              &:hover {
+                color: darken($color3, 5);
+              }
+            }
+          }
+        }
+      }
+
+      a {
+        margin-left: auto;
+        background-color: transparent;
+        border: 0;
+        width: 20px;
+        height: 20px;
+
+        i {
+          color: $color2;
+          width: 20px;
+          height: 20px;
+          transition: color 0.5s;
+
+          &:hover {
+            color: lighten($color2, 20);
+          }
+
+        }
+      }
+
+    }
+  }

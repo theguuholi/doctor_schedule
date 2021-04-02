@@ -61,7 +61,7 @@ defmodule DoctorSchedule.MixProject do
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 0.13.0"},
+      {:phoenix_live_view, "~> 0.13.2"},
       {:floki, ">= 0.0.0", only: :test},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -82,7 +82,8 @@ defmodule DoctorSchedule.MixProject do
       {:mongodb, ">= 0.0.0"},
       {:poolboy, ">= 0.0.0"},
       {:redix, ">= 0.0.0"},
-      {:castore, ">= 0.0.0"}
+      {:castore, ">= 0.0.0"},
+      {:timex, "~> 3.5"}
     ]
   end
 

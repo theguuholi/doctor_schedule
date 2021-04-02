@@ -1,0 +1,6 @@
+    .schedule{
+      flex: 1;
+      margin-right: 120px;
+      @import "schedule/next-apointment";
+      @import "schedule/patients";
+    }

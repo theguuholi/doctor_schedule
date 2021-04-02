@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: {{ .Values.replicaCountPg }}
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      volumes: #define o pvc
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: db-persistent-volume-claim
+      containers:
+        - name: postgres
+          image: postgres:12
+          ports:
+            - containerPort: 5432
+          volumeMounts: #o que eu quero usar no container
+            - name: postgres-storage #procure onde esta montado o volume
+              mountPath: /var/lib/postgresql/data #similar o dockervolumes
+              subPath: postgres #onde estara os dados
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: pgpassword
+                  name: {{ .Chart.Name }}

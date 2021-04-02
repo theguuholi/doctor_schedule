@@ -32,17 +32,13 @@ input {
 @import "panels/container";
 @import "panels/animation";
 @import "panels/responsive";
-
+@import "doctor/dashboard";
 
 @import "../node_modules/nprogress/nprogress.css";
 
-
 /* LiveView specific classes for your customizations */
-.invalid-feedback {
-  color: #a94442;
-  display: block;
-  margin: -1rem 0 2rem;
-}
+@import "components/error-input";
+
 
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {
@@ -97,31 +93,4 @@ input {
   cursor: pointer;
 }
 
-
-/* Alerts and form errors */
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
-
-.alert-info {
-  color: #31708f;
-}
-
-.alert-warning {
-  color: #8a6d3b;
-}
-
-.alert-danger {
-  color: #a94442;
-}
-
-.alert p {
-  margin-bottom: 0;
-}
-
-.alert:empty {
-  display: none;
-}
+@import "components/alert";

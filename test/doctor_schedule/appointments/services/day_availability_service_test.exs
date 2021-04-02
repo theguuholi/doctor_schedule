@@ -24,8 +24,7 @@ defmodule DoctorSchedule.Appointments.Services.DayAvailabilityServiceTest do
 
   test "it should see all available hour with and without cache" do
     provider = UserFixture.create_provider()
-    date = Date.utc_today()
-    date = %Date{date | day: date.day - 1}
+    date = Timex.now() |> Timex.shift(days: -1) |> Timex.to_date()
 
     with_mock Redix, command: fn _, _ -> {:ok, nil} end do
       response = DayAvailabilityService.execute(provider.id, date)

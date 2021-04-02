@@ -1,3 +1,9 @@
+@mixin blur-input($val) {
+  @if $val==true {
+    color: $color2;
+  }
+}
+
 .input-field{
   max-width: 380px;
   width: 100%;
@@ -6,7 +12,7 @@
   height: 55px;
   border-radius: 55px;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 15% 70% 15%;
   padding: 0 0.4rem;
   position: relative;
 
@@ -16,6 +22,20 @@
     color: $color1;
     transition: 0.5s;
     font-size: 1.1rem;
+
+    &.blur {
+      @include blur-input(true);
+    }
+  }
+
+
+  &:focus-within {
+    color: $color1;
+    border: 0.2px solid $color4;
+  }
+
+  &.error {
+    border: 0.2px solid $color2;
   }
 
   input{

@@ -10,12 +10,14 @@ defmodule DoctorScheduleWeb.ErrorHelpers do
   """
   def error_tag(form, field) do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
-      content_tag(:span, translate_error(error),
+      content_tag(:div, [get_icon(), content_tag(:span, translate_error(error))],
         class: "invalid-feedback",
         phx_feedback_for: input_id(form, field)
       )
     end)
   end
+
+  defp get_icon, do: content_tag(:i, "", class: "fa fa-exclamation-circle", "aria-hidden": true)
 
   @doc """
   Translates an error message using gettext.

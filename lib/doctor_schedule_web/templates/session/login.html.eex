@@ -1,17 +1,18 @@
 <%= form_for @changeset, @action, [id: "sign-in-form"], fn f -> %>
 <h2 class="title">Faca seu login</h2>
-<div class="input-field">
-  <i class="fas fa-envelope"></i>
+
+<div class="input-field <%= if f.params != %{} && f.source.errors[:email], do: "error" %>">
+  <i class="fas fa-envelope <%= f.params != %{} && f.source.errors[:email] && "blur" || "" %>"></i>
   <%= email_input f, :email, placeholder: "E-mail" %>
   <%= error_tag f, :email %>
 </div>
 
-<div class="input-field">
-  <i class="fas fa-lock"></i>
+<div class="input-field <%= if f.params != %{} && f.source.errors[:password], do: "error" %>">
+  <i class="fas fa-lock <%= f.params != %{} && f.source.errors[:password] && "blur" || "" %>"></i>
   <%= password_input f, :password, placeholder: "Senha" %>
   <%= error_tag f, :password %>
 </div>
 
 <%= submit "Entrar", class: "btn solid"  %>
-<p><%= link "Esqueci minha Senha", to: Routes.forgot_password_path(@conn, :forgot_password) %></p>
+<p><%= link "Esqueci minha Senhaa", to: Routes.forgot_password_path(@conn, :forgot_password) %></p>
 <% end %>

@@ -1,0 +1,29 @@
+ <div class="calendar">
+   <div class="month">
+     <ul>
+       <li class="prev">
+         <a href="#" phx-click="previous-month">
+           <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+         </a>
+       </li>
+       <li> <%= @calendar.current_month %></li>
+       <li class="next">
+         <a href="#" phx-click="next-month">
+           <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+         </a>
+       </li>
+     </ul>
+   </div>
+
+   <ul class="weekdays">
+     <%= for day_of_week <- @calendar.days_of_week do %>
+     <li><%= day_of_week %> </li>
+     <% end %>
+   </ul>
+
+   <ul class="days">
+     <%= for date_info <- @calendar.days do %>
+     <li class="<%= date_info.type %> " phx-click="pick-date" phx-value-date="<%= date_info.date %>"><%= date_info.date.day %> </li>
+     <% end %>
+   </ul>
+ </div>

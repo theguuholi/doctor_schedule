@@ -1,0 +1,34 @@
+<div class="doctor-dashboard">
+  <%= live_component @socket, DoctorScheduleWeb.HeaderComponent, assigns %>
+  <main>
+    <div class="schedule">
+      <%= live_component @socket, DoctorScheduleWeb.InfoComponent, assigns %>
+
+      <section class="patients">
+        <strong>Morning</strong>
+        <%= if @calendar.schedules.morning_appointments == [] do %>
+        <p>There is no patients in this period</p>
+        <% else %>
+        <%= for appointment <- @calendar.schedules.morning_appointments do %>
+        <%= live_component @socket, DoctorScheduleWeb.PatientComponent, %{appointment: appointment} %>
+        <% end %>
+        <% end %>
+      </section>
+
+      <section class="patients">
+        <strong>Afternoon</strong>
+        <%= if @calendar.schedules.afternoon_apointments == [] do %>
+        <p>There is no patients in this period</p>
+        <% else %>
+        <%= for appointment <- @calendar.schedules.afternoon_apointments do %>
+        <%= live_component @socket, DoctorScheduleWeb.PatientComponent,  %{appointment: appointment} %>
+        <% end %>
+        <% end %>
+      </section>
+    </div>
+
+    <aside>
+      <%= live_component @socket, DoctorScheduleWeb.ScheduleComponent, calendar: @calendar %>
+    </aside>
+  </main>
+</div>

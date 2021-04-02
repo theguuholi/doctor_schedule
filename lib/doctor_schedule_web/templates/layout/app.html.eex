@@ -1,5 +1,14 @@
-<%# <main role="main" class="container"> %>
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-  <%= @inner_content %>
-<%# </main> %>
+<%= if get_flash(@conn, :error) do %>
+<p class="alert alert-danger" role="alert">
+  <i class="fa fa-exclamation-circle"></i>
+  <%= get_flash(@conn, :error) %>
+</p>
+<% end %>
+<%= if get_flash(@conn, :info) do %>
+<p class="alert alert-info" role="alert">
+  <i class="far fa-thumbs-up"></i>
+  <%= get_flash(@conn, :info) %>
+</p>
+<% end %>
+
+<%= @inner_content %>
