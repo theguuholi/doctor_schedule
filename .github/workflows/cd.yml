@@ -24,7 +24,7 @@ jobs:
      - run: |-
           gcloud --quiet auth configure-docker
      - run: |-
-          gcloud container clusters get-credentials "$GKE_CLUSTER" --region "$GKE_REGION"
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --region "$GKE_REGION" --project "$PROJECT_ID"
      - name: Build docker IMAGE
        run: |-
         docker pull "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" > /dev/null || docker build -t "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" .
