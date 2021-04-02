@@ -32,12 +32,12 @@ jobs:
        run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
      - name: Deploy Helm Chart
-       working-directory: "./${{ env.image }}/charts"
+       working-directory: "./charts/${{ env.IMAGE }}"
        run: |-
         pwd
         helm dependency update
         helm \
-        upgrade "doctor-schedule"
+        upgrade "doctor-schedule" \
         ./ \
         --wait \
         --reuse-values \
