@@ -1,0 +1,27 @@
+replicaCountApp: 1
+replicaCountPg: 1
+
+image:
+  repository: elxpro/doctor_schedule
+  tag: v2
+
+database:
+  url:
+  poolSize: "2"
+
+secretKeyBase: 6JwpGyrnuipQNo8MapaxL3Q9m48HxVuCao+QFEMGHl+I8Dp8rnkltBnLw7rdr56Z
+guardianSecret: jSZXHnu1mN7Y4ZY65ghBSeJIZtowq/EsBSllejDFfGCYosYJ5Faa8ZkAzoqmsjoR
+
+smtp:
+  host: smtp.ethereal.email
+  port: "587"
+  userName: alaina.erdman@ethereal.email
+  password: b4c71ee2PW4bRkKzKm
+
+mongo:
+  url:
+  poolSize: "2"
+
+redisUrl:
+
+pgpassword: postgres
