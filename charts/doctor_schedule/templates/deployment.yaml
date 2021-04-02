@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doctor-schedule-deployment
+spec:
+  replicas: {{ .Values.replicaCountApp }}
+  selector:
+    matchLabels:
+      component: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        component: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 4000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: database-url
+                  name: {{ .Chart.Name }}
+            - name: POOL_SIZE
+              value: "{{ .Values.database.poolSize }}"
+            - name: SECRET_KEY_BASE
+              value: {{ .Values.secretKeyBase }}
+            - name: GUARDIAN_SECRET
+              value: {{ .Values.guardianSecret }}
+            - name: SMTP_HOST
+              value: {{ .Values.smtp.host }}
+            - name: SMTP_PORT
+              value: "{{ .Values.smtp.port }}"
+            - name: SMTP_USERNAME
+              value: {{ .Values.smtp.userName }}
+            - name: SMTP_PASSWORD
+              value: {{ .Values.smtp.password }}
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  key: mongo-url
+                  name: {{ .Chart.Name }}
+            - name: MONGO_POOL_SIZE
+              value: "{{ .Values.mongo.poolSize }}"
+            - name: REDIS_URL
+              valueFrom:
+               secretKeyRef:
+                key: redis-url
+                name: {{ .Chart.Name }}
