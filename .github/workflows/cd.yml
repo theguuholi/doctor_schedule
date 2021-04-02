@@ -32,13 +32,13 @@ jobs:
        run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
      - name: Deploy Helm Chart
-       working-directory: "./charts/${{ env.IMAGE }}"
+      #  working-directory:
        run: |-
         pwd
         helm dependency update
         helm \
         upgrade "doctor-schedule" \
-        ./ \
+        ./"charts/${{ env.IMAGE }}"\
         --wait \
         --reuse-values \
         --set image.tag="$GITHUB_SHA"
