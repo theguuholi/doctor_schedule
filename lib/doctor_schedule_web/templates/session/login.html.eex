@@ -14,5 +14,5 @@
 </div>
 
 <%= submit "Entrar", class: "btn solid"  %>
-<p><%= link "Esqueci minha Senhaa", to: Routes.forgot_password_path(@conn, :forgot_password) %></p>
+<p><%= link "eEsqueci minha Senha", to: Routes.forgot_password_path(@conn, :forgot_password) %></p>
 <% end %>
