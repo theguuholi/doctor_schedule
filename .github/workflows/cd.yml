@@ -32,7 +32,7 @@ jobs:
        run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
      - name: Deploy Helm Chart
-       working-directory: "./charts/${{ env.image }}"
+       working-directory: "./${{ env.image }}/charts"
        run: |-
         pwd
         helm dependency update
