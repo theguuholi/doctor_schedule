@@ -43,4 +43,4 @@ jobs:
         ./ \
         --wait \
         --reuse-values \
-        --set image.tag="$GITHUB_SHA"
+        --set image.repository="gcr.io/$PROJECT_ID/$IMAGE",image.tag="$GITHUB_SHA"
