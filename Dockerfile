@@ -1,6 +1,6 @@
 FROM elixir:alpine as build
 
-RUN apk add --no-cache build-base npm git python
+RUN apk add --no-cache build-base npm git python3
 
 WORKDIR /app
 
@@ -42,4 +42,3 @@ COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/doctor_schedule ./
 ENV HOME=/app
 
 CMD ["bin/doctor_schedule", "start"]
-
