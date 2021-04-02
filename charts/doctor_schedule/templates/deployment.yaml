@@ -1,16 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: doctor-schedule-deployment
+  name: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicaCountApp }}
   selector:
     matchLabels:
-      component: {{ .Chart.Name }}
+      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/instance: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        component: {{ .Chart.Name }}
+        app.kubernetes.io/name: {{ .Chart.Name }}
+        app.kubernetes.io/instance: {{ .Chart.Name }}
+        app: {{ .Chart.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

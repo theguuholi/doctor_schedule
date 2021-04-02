@@ -31,5 +31,5 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: pgpassword
-                  key: {{ .Chart.Name }}
+                  key: pgpassword
+                  name: {{ .Chart.Name }}
