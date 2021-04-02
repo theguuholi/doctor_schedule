@@ -1,0 +1,44 @@
+name: Deploy GKE
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  GKE_REGION: ${{ secrets.GKE_REGION }}
+  IMAGE: ${{ secrets.APP }}
+
+jobs:
+  deploy:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v2
+     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+       with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+     - run: |-
+          gcloud --quiet auth configure-docker
+     - run: |-
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --region "$GKE_REGION"
+     - name: Build docker IMAGE
+       run: |-
+        docker pull "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" > /dev/null || docker build -t "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" .
+     - name: Push docker image
+       run: |-
+        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+     - name: Deploy Helm Chart
+       working-directory: "./charts/${{ env.image }}"
+       run: |-
+        pwd
+        helm dependency update
+        helm \
+        upgrade "doctor-schedule"
+        ./ \
+        --wait \
+        --reuse-values \
+        --set image.tag="$GITHUB_SHA"
