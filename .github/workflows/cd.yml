@@ -40,7 +40,7 @@ jobs:
         helm dependency update
         helm \
         -n "$NAMESPACE" \
-        upgrade "$HELM_PROJECT" \
+        upgrade doctor-schedule \
         ./ \
         --wait \
         --reuse-values \
