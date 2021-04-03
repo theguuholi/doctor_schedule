@@ -10,7 +10,8 @@ env:
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_REGION: ${{ secrets.GKE_REGION }}
   IMAGE: ${{ secrets.APP }}
-  NAMESPACE: default
+  HELM_PROJECT: ${{ secrets.HELM_PROJECT }}
+  NAMESPACE: ${{ secrets.NAMESPACE }}
 
 jobs:
   deploy:
@@ -39,8 +40,8 @@ jobs:
         helm dependency update
         helm \
         -n "$NAMESPACE" \
-        upgrade doctor-schedule \
+        upgrade "$HELM_PROJECT" \
         ./ \
         --wait \
         --reuse-values \
-        --set image.tag="$GITHUB_SHA"
+        --set image.repository="$IMAGE",image.tag="$GITHUB_SHA"
