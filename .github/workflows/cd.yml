@@ -39,7 +39,7 @@ jobs:
         pwd
         helm dependency update
         helm \
-        -n "$NAMESPACE" \
+        -n default \
         upgrade doctor-schedule \
         ./ \
         --wait \
