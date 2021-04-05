@@ -39,7 +39,7 @@ jobs:
         pwd
         helm dependency update
         helm \
-        -n default \
+        -n "$NAMESPACE" \
         upgrade "$HELM_PROJECT" \
         ./ \
         --wait \
