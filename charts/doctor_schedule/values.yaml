@@ -6,7 +6,7 @@ image:
   tag: v2
 
 database:
-  url:
+  url: postgres://postgres:postgres@postgres-cluster-ip:5432/doctor_schedule
   poolSize: "2"
 
 secretKeyBase: 6JwpGyrnuipQNo8MapaxL3Q9m48HxVuCao+QFEMGHl+I8Dp8rnkltBnLw7rdr56Z
@@ -19,9 +19,9 @@ smtp:
   password: b4c71ee2PW4bRkKzKm
 
 mongo:
-  url:
+  url: mongodb+srv://guuholi:elxpro123@cluster0.mcd1g.mongodb.net/doctor_scheduler?retryWrites=true
   poolSize: "2"
 
-redisUrl:
+redisUrl: redis://4330767d9a7946e19331ae0c5c789d87@us1-strong-dogfish-32638.upstash.io:32638
 
 pgpassword: postgres
